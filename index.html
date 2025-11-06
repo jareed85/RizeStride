@@ -4,50 +4,45 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>RizeStride — Modern School Fundraising</title>
-  <meta name="description" content="RizeStride helps schools run transparent, tech‑enabled jog‑a‑thons that are fun, fair, and data‑driven.">
+  <meta name="description" content="RizeStride helps schools run transparent, tech-enabled jog-a-thons that are fun, fair, and data-driven.">
   <meta property="og:title" content="RizeStride — Modern School Fundraising" />
-  <meta property="og:description" content="Transparent, tech‑enabled jog‑a‑thons with premium execution and fair pricing." />
+  <meta property="og:description" content="Transparent, tech-enabled jog-a-thons with premium execution and fair pricing." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="./og-rizestride.jpg" />
   <meta name="theme-color" content="#0077FF" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="./favicon-192.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
-  <link rel="shortcut icon" href="./favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --blue:#0077FF;        /* Electric Blue */
-      --teal:#00C6AE;        /* Mint/Teal */
-      --coral:#FF6B4A;       /* Bright Coral */
-      --charcoal:#222831;    /* Charcoal Gray */
-      --offwhite:#F7F9FB;    /* Soft White */
+      --blue:#0077FF; --teal:#00C6AE; --coral:#FF6B4A;
+      --charcoal:#222831; --offwhite:#F7F9FB;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0;
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      color:var(--charcoal);
-      background:linear-gradient(180deg,var(--offwhite),#ffffff);
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--charcoal); background:linear-gradient(180deg,var(--offwhite),#fff);
     }
     a{color:inherit;text-decoration:none}
     .container{width:min(1100px,92%);margin-inline:auto}
-    header{
-      position:sticky;top:0;z-index:20;background:#fff8;backdrop-filter:saturate(180%) blur(6px);
-      border-bottom:1px solid #e9eef5
-    }
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:.8rem 0}
-    .badge{display:flex;align-items:center;gap:.65rem}
-    .logo-svg{width:48px;height:48px;object-fit:contain;image-rendering:auto}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:20;background:#fff8;backdrop-filter:saturate(180%) blur(6px);border-bottom:1px solid #e9eef5}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:.7rem 0}
+    .badge{display:flex;align-items:center;gap:.7rem}
+    /* Circle mask for logo + bigger size */
+    .logo-wrap{width:72px;height:72px;border-radius:50%;overflow:hidden;display:inline-flex;align-items:center;justify-content:center}
+    .logo-img{width:100%;height:100%;object-fit:cover;image-rendering:auto}
     .brand{font-weight:800;letter-spacing:.2px}
     .cta{
       display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1rem;border-radius:14px;font-weight:600;
-      background:linear-gradient(135deg,var(--blue),var(--teal));color:white;box-shadow:0 8px 20px rgba(0,119,255,.25);transition:transform .15s ease,box-shadow .15s ease
+      background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;box-shadow:0 8px 20px rgba(0,119,255,.25);transition:transform .15s ease,box-shadow .15s ease
     }
     .cta:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,119,255,.32)}
+
+    /* Hero */
     .hero{padding:6.5rem 0 4rem;position:relative;overflow:hidden}
     .hero .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem}
     .kicker{font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.12em;font-size:.82rem}
@@ -56,31 +51,48 @@
     .hero-card{background:#fff;border:1px solid #e9eef5;border-radius:22px;padding:1.25rem;box-shadow:0 20px 60px rgba(2,6,23,.08)}
     .hero-badges{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem}
     .pill{background:linear-gradient(180deg,#fff,#f2f6fb);border:1px solid #e6edf6;border-radius:999px;padding:.45rem .75rem;font-size:.9rem;font-weight:600;color:#334155}
+
+    /* Sections */
     .section{padding:4rem 0;border-top:1px solid #eef2f7}
     .props{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
     .card{background:#fff;border:1px solid #e9eef5;border-radius:20px;padding:1.25rem;box-shadow:0 10px 30px rgba(2,6,23,.06)}
     .card h3{margin:.2rem 0 .4rem}
     .tag{display:inline-block;font-weight:700;font-size:.78rem;color:var(--blue);letter-spacing:.06em}
+
+    /* Tiers */
     .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
     .tier{border-radius:22px;border:1px solid #e3eaf4;background:#fff;box-shadow:0 12px 36px rgba(2,6,23,.06);padding:1.2rem}
     .tier h4{margin:.2rem 0 .8rem}
     .price{font-weight:800;font-size:1.8rem}
     .inc{margin:.8rem 0 0;padding:0 0 0 1.1rem}
     .inc li{margin:.35rem 0}
-    .tier--popular{border-color:transparent;background:linear-gradient(180deg,#ffffff, #f7fbff);box-shadow:0 16px 44px rgba(0,119,255,.16)}
+    .tier--popular{border-color:transparent;background:linear-gradient(180deg,#ffffff,#f7fbff);box-shadow:0 16px 44px rgba(0,119,255,.16)}
     .tier--popular .badgelet{background:var(--coral);color:#fff;font-weight:700;border-radius:999px;padding:.25rem .6rem;font-size:.72rem;letter-spacing:.06em}
-    .cta-band{background:linear-gradient(135deg,var(--blue),var(--teal));color:white;border-radius:24px;padding:1.25rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+
+    /* CTA band */
+    .cta-band{background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;border-radius:24px;padding:1.25rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
     .cta-band p{margin:.2rem 0;opacity:.95}
+
+    /* Footer */
     footer{padding:3rem 0;color:#556070}
     footer small{display:block;margin-top:.75rem}
-    @media (max-width: 920px){.hero .grid{grid-template-columns:1fr}.props,.tiers{grid-template-columns:1fr}}
+
+    /* Responsive */
+    @media (max-width:920px){
+      .hero .grid{grid-template-columns:1fr}
+      .props,.tiers{grid-template-columns:1fr}
+      .logo-wrap{width:56px;height:56px}
+    }
   </style>
 </head>
 <body>
   <header aria-label="Primary">
     <div class="container nav">
       <div class="badge" aria-label="RizeStride logo">
-        <img src="./rizestride-logo.png" alt="RizeStride logo" class="logo-svg" width="48" height="48" loading="eager" decoding="async">
+        <!-- Larger, circular-masked logo -->
+        <span class="logo-wrap">
+          <img src="./rizestride-logo.png" alt="RizeStride logo" class="logo-img" loading="eager" decoding="async">
+        </span>
         <span class="brand">RizeStride</span>
       </div>
       <a class="cta" href="#contact">Book an Event</a>
@@ -92,8 +104,8 @@
       <div class="container grid">
         <div>
           <div class="kicker">Modern school fundraising</div>
-          <h1>Transparent, tech‑enabled jog‑a‑thons that help schools keep more.</h1>
-          <p class="lead">RizeStride combines a donation platform, RFID lap tracking, and clean event execution. Choose DIY, prize‑included, or full‑service — always at fair, transparent pricing.</p>
+          <h1>Transparent, tech-enabled jog-a-thons that help schools keep more.</h1>
+          <p class="lead">RizeStride combines a donation platform, RFID lap tracking, and clean event execution. Choose DIY, prize-included, or full-service — always at fair, transparent pricing.</p>
           <p style="margin-top:.5rem;font-size:.95rem;color:#64748b">All donations securely processed — powered by the GroupRev platform.</p>
           <div class="hero-badges" aria-label="Key benefits">
             <span class="pill">5–25% tiers</span>
@@ -107,7 +119,7 @@
           </div>
         </div>
         <div class="hero-card" aria-label="Live preview">
-          <img src="./mock-leaderboard.png" alt="Example live leaderboard preview" style="width:100%;border-radius:16px;border:1px solid #e9eef5"/>
+          <img src="./mock-leaderboard.png" alt="Fundraising thermometer graphic" style="width:100%;border-radius:16px;border:1px solid #e9eef5"/>
           <div style="display:flex;gap:.5rem;margin-top:.8rem;align-items:center">
             <span class="tag">Live Platform</span>
             <small style="color:#64748b">All donations securely processed — powered by the GroupRev platform.</small>
@@ -125,12 +137,12 @@
             <p>No surprises. Choose Basic (5%), Plus (15%), or Full Service (25%). Optional hardware rental for Plus.</p>
           </div>
           <div class="card">
-            <span class="tag">Tech‑enabled</span>
+            <span class="tag">Tech-enabled</span>
             <h3>RFID lap tracking</h3>
             <p>Orbiter SPIRE hardware delivers accurate lap counts and live leaderboards without messy mats or cables.</p>
           </div>
           <div class="card">
-            <span class="tag">School‑first</span>
+            <span class="tag">School-first</span>
             <h3>Keep more of every dollar</h3>
             <p>Built to maximize funds kept by schools while reducing PTA stress on event day.</p>
           </div>
@@ -169,10 +181,10 @@
             <div class="price">25%</div>
             <h4>Full Service — Turnkey</h4>
             <ul class="inc">
-              <li>On‑site coordination & emcee</li>
+              <li>On-site coordination & emcee</li>
               <li>RFID lap tracking included</li>
               <li>Event staff, setup & teardown</li>
-              <li>Post‑event analytics report</li>
+              <li>Post-event analytics report</li>
             </ul>
           </article>
         </div>
@@ -183,7 +195,7 @@
       <div class="container cta-band" id="contact">
         <div>
           <h3 style="margin:.2rem 0">Book an Event</h3>
-          <p>South Orange County schools get priority scheduling and founding‑school perks.</p>
+          <p>South Orange County schools get priority scheduling and founding-school perks.</p>
         </div>
         <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry">events@rizestride.com</a>
       </div>
@@ -194,7 +206,7 @@
     <div class="container" style="display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap">
       <div>
         <strong>RizeStride</strong><br/>
-        <small>Transparent, tech‑enabled fundraising.</small>
+        <small>Transparent, tech-enabled fundraising.</small>
       </div>
       <div>
         <small>© <span id="y"></span> RizeStride · South Orange County, CA</small>
@@ -202,8 +214,6 @@
     </div>
   </footer>
 
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 </body>
 </html>
