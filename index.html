@@ -76,10 +76,27 @@
     footer{padding:3rem 0;color:#556070}
     footer small{display:block;margin-top:.75rem}
 
+    /* Make Google's popup sit above everything */
+    .goog-scheduling-button, .goog-scheduling-button *, 
+    .goog-scheduling-popup, .goog-scheduling-popup * {
+      z-index: 2147483647 !important;
+    }
+
     @media (max-width:920px){
+      .hero{overflow:visible;} /* prevent clipping on mobile */
       .hero .grid{grid-template-columns:1fr}
       .props,.tiers{grid-template-columns:1fr}
       .logo-wrap{width:56px;height:56px}
+    }
+
+    /* Hide our preloaded Google button container */
+    #gcalHiddenMount { 
+      position: absolute; 
+      left: -9999px; 
+      top: -9999px; 
+      width: 1px; 
+      height: 1px; 
+      overflow: hidden; 
     }
   </style>
 </head>
@@ -231,18 +248,50 @@
     }
   </script>
 
+  <!-- Hidden mount for Google's scheduling button (preloaded) -->
+  <div id="gcalHiddenMount" aria-hidden="true"></div>
+
   <!-- Google Calendar Appointment Scheduling -->
   <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
   <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
   <script>
-    window.addEventListener('load',function(){
-      const apptUrl='https://calendar.app.google/Avbnk3CPgdS3PkNc8';
+    window.addEventListener('load', function(){
+      const apptUrl = 'https://calendar.app.google/Avbnk3CPgdS3PkNc8';
+
+      // 1) Preload Google's button invisibly so we can trigger it without showing it
+      calendar.schedulingButton.load({
+        url: apptUrl,
+        color: '#0077FF',
+        label: 'Book a Call',
+        target: document.getElementById('gcalHiddenMount')
+      });
+
+      // Helper to find the injected Google button inside our hidden mount
+      function getGoogleInjectedButton(){
+        // Try a couple selectors Google uses
+        return document.querySelector('#gcalHiddenMount .goog-scheduling-button button') ||
+               document.querySelector('#gcalHiddenMount .goog-scheduling-button');
+      }
+
+      function openBooking(){
+        // On mobile, open in a new tab for reliability
+        if (window.matchMedia('(max-width: 920px)').matches) {
+          window.open(apptUrl, '_blank', 'noopener');
+          return;
+        }
+        // On desktop, trigger Google's flyout immediately (no extra button shown)
+        const gbtn = getGoogleInjectedButton();
+        if (gbtn) {
+          gbtn.click();
+        } else {
+          // Fallback if not yet ready
+          window.open(apptUrl, '_blank', 'noopener');
+        }
+      }
+
       ['calendarButton','calendarButtonHero'].forEach(id=>{
-        const btn=document.getElementById(id);
-        if(!btn)return;
-        btn.addEventListener('click',()=>calendar.schedulingButton.load({
-          url:apptUrl,color:'#0077FF',label:'Book a Call',target:document.body
-        }));
+        const btn = document.getElementById(id);
+        if (btn) btn.addEventListener('click', openBooking);
       });
     });
   </script>
