@@ -10,11 +10,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
-    :root{ --blue:#0077FF; --teal:#00C6AE; --coral:#FF6B4A; --charcoal:#222831; --offwhite:#F7F9FB; }
+    :root{
+      --blue:#0077FF; --teal:#00C6AE; --coral:#FF6B4A;
+      --charcoal:#222831; --offwhite:#F7F9FB;
+    }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{ margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      color:var(--charcoal); background:linear-gradient(180deg,var(--offwhite),#fff); }
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--charcoal); background:linear-gradient(180deg,var(--offwhite),#fff);
+    }
     a{color:inherit;text-decoration:none}
     .container{width:min(1100px,92%);margin-inline:auto}
 
@@ -71,18 +76,11 @@
     footer{padding:3rem 0;color:#556070}
     footer small{display:block;margin-top:.75rem}
 
-    /* Ensure Google's popup sits above everything */
-    .goog-scheduling-popup, .goog-scheduling-popup * { z-index: 2147483647 !important; }
-
-    /* Hide any Google-injected scheduling button globally (belt & suspenders) */
-    .goog-scheduling-button, .goog-scheduling-button * {
-      display:none !important; visibility:hidden !important; opacity:0 !important;
-      position:absolute !important; left:-99999px !important; top:-99999px !important;
-      width:1px !important; height:1px !important; overflow:hidden !important; pointer-events:none !important;
+    /* Make Google's popup sit above everything */
+    .goog-scheduling-button, .goog-scheduling-button *, 
+    .goog-scheduling-popup, .goog-scheduling-popup * {
+      z-index: 2147483647 !important;
     }
-
-    /* Hidden mount container for Google’s widget */
-    #gcalHiddenMount { position:absolute; left:-99999px; top:-99999px; width:1px; height:1px; overflow:hidden; }
 
     @media (max-width:920px){
       .hero{overflow:visible;} /* prevent clipping on mobile */
@@ -90,13 +88,25 @@
       .props,.tiers{grid-template-columns:1fr}
       .logo-wrap{width:56px;height:56px}
     }
+
+    /* Hide our preloaded Google button container */
+    #gcalHiddenMount { 
+      position: absolute; 
+      left: -9999px; 
+      top: -9999px; 
+      width: 1px; 
+      height: 1px; 
+      overflow: hidden; 
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="container nav">
       <div class="badge">
-        <span class="logo-wrap"><img src="./rizestride-logo.png" alt="RizeStride logo" class="logo-img"></span>
+        <span class="logo-wrap">
+          <img src="./rizestride-logo.png" alt="RizeStride logo" class="logo-img">
+        </span>
         <span class="brand">RizeStride</span>
       </div>
       <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry">Book an Event</a>
@@ -238,72 +248,52 @@
     }
   </script>
 
-  <!-- Hidden mount for Google's scheduling button -->
+  <!-- Hidden mount for Google's scheduling button (preloaded) -->
   <div id="gcalHiddenMount" aria-hidden="true"></div>
 
   <!-- Google Calendar Appointment Scheduling -->
   <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
   <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
   <script>
-    (function(){
+    window.addEventListener('load', function(){
       const apptUrl = 'https://calendar.app.google/Avbnk3CPgdS3PkNc8';
-      let gbtn = null; // reference to Google's hidden button
-      let widgetLoaded = false;
 
-      // Hide any Google-branded scheduling button that appears anywhere
-      const hideGoogleButtons = () => {
-        document.querySelectorAll('.goog-scheduling-button').forEach(el=>{
-          el.style.display='none';
-          el.style.visibility='hidden';
-          el.style.opacity='0';
-          el.style.position='absolute';
-          el.style.left='-99999px';
-          el.style.top='-99999px';
-          el.style.pointerEvents='none';
-        });
-      };
+      // 1) Preload Google's button invisibly so we can trigger it without showing it
+      calendar.schedulingButton.load({
+        url: apptUrl,
+        color: '#0077FF',
+        label: 'Book a Call',
+        target: document.getElementById('gcalHiddenMount')
+      });
 
-      // MutationObserver to nuke any stray buttons Google injects
-      const mo = new MutationObserver(hideGoogleButtons);
-      mo.observe(document.documentElement, { childList:true, subtree:true });
-
-      // Ensure the button is created once
-      function loadWidgetOnce(cb){
-        if (widgetLoaded && gbtn) { cb && cb(); return; }
-        if (!window.calendar || !calendar.schedulingButton) {
-          return setTimeout(()=>loadWidgetOnce(cb), 100);
-        }
-        // Load into hidden mount ONE TIME
-        calendar.schedulingButton.load({
-          url: apptUrl,
-          color: '#0077FF',
-          label: 'Book a Call',
-          target: document.getElementById('gcalHiddenMount')
-        });
-        // Wait for Google to inject its hidden button
-        const findBtn = () => {
-          gbtn = document.querySelector('#gcalHiddenMount .goog-scheduling-button button') ||
-                 document.querySelector('#gcalHiddenMount .goog-scheduling-button');
-          if (gbtn) { widgetLoaded = true; hideGoogleButtons(); cb && cb(); }
-          else { setTimeout(findBtn, 100); }
-        };
-        findBtn();
+      // Helper to find the injected Google button inside our hidden mount
+      function getGoogleInjectedButton(){
+        // Try a couple selectors Google uses
+        return document.querySelector('#gcalHiddenMount .goog-scheduling-button button') ||
+               document.querySelector('#gcalHiddenMount .goog-scheduling-button');
       }
 
       function openBooking(){
-        loadWidgetOnce(()=> { if (gbtn) gbtn.click(); });
+        // On mobile, open in a new tab for reliability
+        if (window.matchMedia('(max-width: 920px)').matches) {
+          window.open(apptUrl, '_blank', 'noopener');
+          return;
+        }
+        // On desktop, trigger Google's flyout immediately (no extra button shown)
+        const gbtn = getGoogleInjectedButton();
+        if (gbtn) {
+          gbtn.click();
+        } else {
+          // Fallback if not yet ready
+          window.open(apptUrl, '_blank', 'noopener');
+        }
       }
 
-      window.addEventListener('load', function(){
-        // Prime the widget (without showing any button)
-        loadWidgetOnce();
-        // Wire up our CTAs
-        ['calendarButton','calendarButtonHero'].forEach(id=>{
-          const btn = document.getElementById(id);
-          if (btn) btn.addEventListener('click', openBooking);
-        });
+      ['calendarButton','calendarButtonHero'].forEach(id=>{
+        const btn = document.getElementById(id);
+        if (btn) btn.addEventListener('click', openBooking);
       });
-    })();
+    });
   </script>
 </body>
 </html>
