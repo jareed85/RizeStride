@@ -11,7 +11,8 @@
 
   <style>
     :root{
-      --blue:#0077FF; --teal:#00C6AE; --coral:#FF6B4A;
+      --blue:#039BE5; /* match Google scheduling button default */
+      --teal:#00C6AE; --coral:#FF6B4A;
       --charcoal:#222831; --offwhite:#F7F9FB;
     }
     *{box-sizing:border-box}
@@ -30,15 +31,27 @@
     .logo-wrap{width:72px;height:72px;border-radius:50%;overflow:hidden;display:inline-flex;align-items:center;justify-content:center}
     .logo-img{width:100%;height:100%;object-fit:cover}
     .brand{font-weight:800;letter-spacing:.2px}
+
+    /* CTA style to MATCH Google's button */
     .cta{
       display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
-      min-width:150px;padding:.75rem 1rem;border-radius:14px;font-weight:600;
-      background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;
-      box-shadow:0 8px 20px rgba(0,119,255,.25);
-      transition:transform .15s ease,box-shadow .15s ease;
-      border:none;cursor:pointer;font-family:inherit;text-align:center;
+      min-width:150px;padding:.75rem 1rem;border-radius:8px;font-weight:600;
+      background:var(--blue);color:#fff;border:none;cursor:pointer;font-family:inherit;text-align:center;
+      transition:filter .15s ease, transform .15s ease;
     }
-    .cta:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,119,255,.32)}
+    .cta:hover{filter:brightness(0.95);transform:translateY(-1px)}
+    .cta:active{transform:translateY(0)}
+    .cta:focus{outline:2px solid #1e88e5; outline-offset:2px}
+
+    /* Make Google’s button match our CTAs */
+    .goog-scheduling-button button{
+      min-width:150px !important;
+      padding:.75rem 1rem !important;
+      border-radius:8px !important;
+      font-weight:600 !important;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif !important;
+      box-shadow:none !important;
+    }
 
     /* Hero */
     .hero{padding:6.5rem 0 4rem;position:relative;overflow:hidden}
@@ -55,7 +68,7 @@
     .props{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
     .card{background:#fff;border:1px solid #e9eef5;border-radius:20px;padding:1.25rem;box-shadow:0 10px 30px rgba(2,6,23,.06)}
     .card h3{margin:.2rem 0 .4rem}
-    .tag{display:inline-block;font-weight:700;font-size:.78rem;color:var(--blue);letter-spacing:.06em}
+    .tag{display:inline-block;font-weight:700;font-size:.78rem;color:#0077FF;letter-spacing:.06em}
 
     /* Tiers */
     .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
@@ -64,11 +77,11 @@
     .price{font-weight:800;font-size:1.8rem}
     .inc{margin:.8rem 0 0;padding:0 0 0 1.1rem}
     .inc li{margin:.35rem 0}
-    .tier--popular{border-color:transparent;background:linear-gradient(180deg,#ffffff,#f7fbff);box-shadow:0 16px 44px rgba(0,119,255,.16)}
+    .tier--popular{border-color:transparent;background:linear-gradient(180deg,#ffffff,#f7fbff);box-shadow:0 16px 44px rgba(2,6,23,.16)}
     .tier--popular .badgelet{background:var(--coral);color:#fff;font-weight:700;border-radius:999px;padding:.25rem .6rem;font-size:.72rem;letter-spacing:.06em}
 
     /* CTA band */
-    .cta-band{background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;border-radius:24px;padding:1.25rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .cta-band{background:linear-gradient(135deg,#0077FF,#00C6AE);color:#fff;border-radius:24px;padding:1.25rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
     .cta-band p{margin:.2rem 0;opacity:.95}
     .copyable-email{cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 
@@ -76,27 +89,14 @@
     footer{padding:3rem 0;color:#556070}
     footer small{display:block;margin-top:.75rem}
 
-    /* Make Google's popup sit above everything */
-    .goog-scheduling-button, .goog-scheduling-button *, 
-    .goog-scheduling-popup, .goog-scheduling-popup * {
-      z-index: 2147483647 !important;
-    }
+    /* Keep Google’s popup above everything */
+    .goog-scheduling-popup, .goog-scheduling-popup * { z-index: 2147483647 !important; }
 
     @media (max-width:920px){
-      .hero{overflow:visible;} /* prevent clipping on mobile */
+      .hero{overflow:visible;}
       .hero .grid{grid-template-columns:1fr}
       .props,.tiers{grid-template-columns:1fr}
       .logo-wrap{width:56px;height:56px}
-    }
-
-    /* Hide our preloaded Google button container */
-    #gcalHiddenMount { 
-      position: absolute; 
-      left: -9999px; 
-      top: -9999px; 
-      width: 1px; 
-      height: 1px; 
-      overflow: hidden; 
     }
   </style>
 </head>
@@ -126,10 +126,11 @@
             <span class="pill">Powered by GroupRev</span>
             <span class="pill">South Orange County</span>
           </div>
-          <div style="margin-top:1.25rem;display:flex;gap:.75rem;flex-wrap:wrap">
+          <div style="margin-top:1.25rem;display:flex;gap:.75rem;flex-wrap:wrap;align-items:center">
             <a class="cta" href="#tiers">See Tiers</a>
             <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry">Book an Event</a>
-            <button id="calendarButtonHero" class="cta" type="button">Book a Call</button>
+            <!-- Official Google button renders here -->
+            <span id="gcalBtnHero"></span>
           </div>
         </div>
         <div class="hero-card">
@@ -214,7 +215,8 @@
         </div>
         <div style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center">
           <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry">Book an Event</a>
-          <button id="calendarButton" class="cta" type="button">Book a Call</button>
+          <!-- Official Google button renders here too -->
+          <span id="gcalBtnContact"></span>
         </div>
       </div>
     </section>
@@ -248,9 +250,6 @@
     }
   </script>
 
-  <!-- Hidden mount for Google's scheduling button (preloaded) -->
-  <div id="gcalHiddenMount" aria-hidden="true"></div>
-
   <!-- Google Calendar Appointment Scheduling -->
   <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
   <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
@@ -258,35 +257,39 @@
     window.addEventListener('load', function(){
       const apptUrl = 'https://calendar.app.google/Avbnk3CPgdS3PkNc8';
 
-      // 1) Preload Google's button invisibly so we can trigger it without showing it
-      calendar.schedulingButton.load({
-        url: apptUrl,
-        color: '#0077FF',
-        label: 'Book a Call',
-        target: document.getElementById('gcalHiddenMount')
-      });
-
-      // Helper to find the injected Google button inside our hidden mount
-      function getGoogleInjectedButton(){
-        return document.querySelector('#gcalHiddenMount .goog-scheduling-button button') ||
-               document.querySelector('#gcalHiddenMount .goog-scheduling-button');
+      // Render Google's official button in the two targets
+      if (window.calendar && calendar.schedulingButton) {
+        calendar.schedulingButton.load({
+          url: apptUrl,
+          color: '#039BE5',
+          label: 'Book a Call',
+          target: document.getElementById('gcalBtnHero')
+        });
+        calendar.schedulingButton.load({
+          url: apptUrl,
+          color: '#039BE5',
+          label: 'Book a Call',
+          target: document.getElementById('gcalBtnContact')
+        });
+      } else {
+        // If script hasn't finished yet, retry briefly
+        let tries = 0;
+        const iv = setInterval(()=>{
+          if (window.calendar && calendar.schedulingButton) {
+            clearInterval(iv);
+            calendar.schedulingButton.load({
+              url: apptUrl, color: '#039BE5', label: 'Book a Call',
+              target: document.getElementById('gcalBtnHero')
+            });
+            calendar.schedulingButton.load({
+              url: apptUrl, color: '#039BE5', label: 'Book a Call',
+              target: document.getElementById('gcalBtnContact')
+            });
+          } else if (++tries > 40) {
+            clearInterval(iv);
+          }
+        }, 100);
       }
-
-      function openBooking(){
-        // Always try popup (no mobile new-tab)
-        const gbtn = getGoogleInjectedButton();
-        if (gbtn) {
-          gbtn.click();
-        } else {
-          // Fallback if not yet ready
-          window.open(apptUrl, '_blank', 'noopener');
-        }
-      }
-
-      ['calendarButton','calendarButtonHero'].forEach(id=>{
-        const btn = document.getElementById(id);
-        if (btn) btn.addEventListener('click', openBooking);
-      });
     });
   </script>
 </body>
