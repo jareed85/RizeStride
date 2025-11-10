@@ -77,23 +77,12 @@
     footer small{display:block;margin-top:.75rem}
 
     /* Ensure Google's popup sits above everything */
-    .goog-scheduling-button, .goog-scheduling-button *, 
-    .goog-scheduling-popup, .goog-scheduling-popup * {
-      z-index: 2147483647 !important;
-    }
+    .goog-scheduling-popup, .goog-scheduling-popup * { z-index: 2147483647 !important; }
 
-    @media (max-width:920px){
-      .hero{overflow:visible;} /* prevent clipping on mobile */
-      .hero .grid{grid-template-columns:1fr}
-      .props,.tiers{grid-template-columns:1fr}
-      .logo-wrap{width:56px;height:56px}
-    }
-
-    /* HARD-HIDE the preloaded Google button mount so it never shows */
-    #gcalHiddenMount,
-    #gcalHiddenMount *,
-    #gcalHiddenMount .goog-scheduling-button,
-    #gcalHiddenMount .goog-scheduling-button * {
+    /* HARD-HIDE any Google injected scheduling buttons globally */
+    .goog-scheduling-button,
+    .goog-scheduling-button * {
+      display: none !important;
       position: absolute !important;
       left: -99999px !important;
       top: -99999px !important;
@@ -103,6 +92,16 @@
       opacity: 0 !important;
       pointer-events: none !important;
       visibility: hidden !important;
+    }
+
+    /* Hidden mount container */
+    #gcalHiddenMount { position: absolute; left: -99999px; top: -99999px; width: 1px; height: 1px; overflow: hidden; }
+
+    @media (max-width:920px){
+      .hero{overflow:visible;} /* prevent clipping on mobile */
+      .hero .grid{grid-template-columns:1fr}
+      .props,.tiers{grid-template-columns:1fr}
+      .logo-wrap{width:56px;height:56px}
     }
   </style>
 </head>
@@ -261,35 +260,47 @@
   <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
   <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
   <script>
-    window.addEventListener('load', function(){
+    // Robust loader that ensures the Google widget exists, then triggers it
+    (function(){
       const apptUrl = 'https://calendar.app.google/Avbnk3CPgdS3PkNc8';
 
-      // Preload Google's button invisibly so we can trigger it without showing it
-      calendar.schedulingButton.load({
-        url: apptUrl,
-        color: '#0077FF',
-        label: 'Book a Call',
-        target: document.getElementById('gcalHiddenMount')
-      });
+      function googleReady(){ return window.calendar && calendar.schedulingButton; }
 
-      // Find the injected Google button inside our hidden mount
-      function getGoogleInjectedButton(){
-        return document.querySelector('#gcalHiddenMount .goog-scheduling-button button') ||
-               document.querySelector('#gcalHiddenMount .goog-scheduling-button');
+      function ensureHiddenButton(cb, attempt=0){
+        // if Google not loaded yet, retry
+        if (!googleReady()){
+          if (attempt > 40) return; // ~4s max
+          return setTimeout(()=>ensureHiddenButton(cb, attempt+1), 100);
+        }
+        // Load (or re-load) the hidden button into our hidden mount
+        calendar.schedulingButton.load({
+          url: apptUrl,
+          color: '#0077FF',
+          label: 'Book a Call',
+          target: document.getElementById('gcalHiddenMount')
+        });
+
+        // wait for Google's injected button to exist, then callback
+        function findInjected(attempt2=0){
+          const gbtn = document.querySelector('#gcalHiddenMount .goog-scheduling-button button') ||
+                       document.querySelector('#gcalHiddenMount .goog-scheduling-button');
+          if (gbtn){ cb(gbtn); }
+          else if (attempt2 < 40){ setTimeout(()=>findInjected(attempt2+1), 100); }
+        }
+        findInjected();
       }
 
       function openBooking(){
-        const gbtn = getGoogleInjectedButton();
-        if (gbtn) {
-          gbtn.click();
-        }
+        ensureHiddenButton(gbtn => gbtn.click());
       }
 
-      ['calendarButton','calendarButtonHero'].forEach(id=>{
-        const btn = document.getElementById(id);
-        if (btn) btn.addEventListener('click', openBooking);
+      window.addEventListener('load', function(){
+        ['calendarButton','calendarButtonHero'].forEach(id=>{
+          const btn = document.getElementById(id);
+          if (btn) btn.addEventListener('click', openBooking);
+        });
       });
-    });
+    })();
   </script>
 </body>
 </html>
