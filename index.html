@@ -39,15 +39,6 @@
       border:none;cursor:pointer;font-family:inherit;text-align:center;
     }
     .cta:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,119,255,.32)}
-    .cta--alt{
-      background:linear-gradient(135deg,var(--teal),var(--blue))!important;
-      box-shadow:0 8px 20px rgba(0,119,255,.25)!important;
-      color:#fff!important;
-    }
-    .cta--alt:hover{
-      transform:translateY(-1px);
-      box-shadow:0 10px 24px rgba(0,119,255,.35)!important;
-    }
 
     /* Hero */
     .hero{padding:6.5rem 0 4rem;position:relative;overflow:hidden}
@@ -79,19 +70,11 @@
     /* CTA band */
     .cta-band{background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;border-radius:24px;padding:1.25rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
     .cta-band p{margin:.2rem 0;opacity:.95}
+    .copyable-email{cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 
     /* Footer */
     footer{padding:3rem 0;color:#556070}
     footer small{display:block;margin-top:.75rem}
-
-    /* Remove Google button border */
-    .goog-scheduling-button, .goog-scheduling-button > div {
-      border:none!important;
-      box-shadow:none!important;
-      background:none!important;
-      padding:0!important;
-      margin:0!important;
-    }
 
     @media (max-width:920px){
       .hero .grid{grid-template-columns:1fr}
@@ -210,13 +193,11 @@
         <div>
           <h3>Book an Event or Call</h3>
           <p>South Orange County schools get priority scheduling and founding-school perks.</p>
-          <p style="opacity:.9">Email: <strong id="contactEmail">events@rizestride.com</strong></p>
+          <p style="opacity:.9">Email: <strong id="contactEmail" class="copyable-email">events@rizestride.com</strong> <span id="copyStatus" style="display:none;font-weight:600">Copied!</span></p>
         </div>
         <div style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center">
           <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry">Book an Event</a>
           <button id="calendarButton" class="cta" type="button">Book a Call</button>
-          <button id="copyEmailBtn" class="cta cta--alt" type="button">Copy Email</button>
-          <span id="copyStatus" aria-live="polite" style="font-weight:600;display:none">Copied!</span>
         </div>
       </div>
     </section>
@@ -232,23 +213,22 @@
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Copy email function
-    (function(){
-      const btn=document.getElementById('copyEmailBtn');
-      const email=document.getElementById('contactEmail')?.textContent?.trim();
-      const status=document.getElementById('copyStatus');
-      if(!btn||!email)return;
-      btn.addEventListener('click',async()=>{
+    // Copy email when clicked
+    const emailEl=document.getElementById('contactEmail');
+    const copyStatus=document.getElementById('copyStatus');
+    if(emailEl){
+      emailEl.addEventListener('click',async()=>{
+        const email=emailEl.textContent.trim();
         try{await navigator.clipboard.writeText(email);}
         catch{
           const temp=document.createElement('input');
           temp.value=email;document.body.appendChild(temp);temp.select();
           document.execCommand('copy');document.body.removeChild(temp);
         }
-        status.style.display='inline';status.textContent='Copied!';
-        setTimeout(()=>{status.style.display='none';},1400);
+        copyStatus.style.display='inline';
+        setTimeout(()=>copyStatus.style.display='none',1400);
       });
-    })();
+    }
   </script>
 
   <!-- Google Calendar Appointment Scheduling -->
