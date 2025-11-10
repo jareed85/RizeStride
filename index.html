@@ -32,30 +32,49 @@
     .logo-img{width:100%;height:100%;object-fit:cover}
     .brand{font-weight:800;letter-spacing:.2px}
 
-    /* CTA unified style */
-    .cta, .goog-scheduling-button button {
+    /* === EXACT button normalization (our CTA + Google's) === */
+    .cta,
+    .goog-scheduling-button button {
       display:inline-flex !important;
       align-items:center !important;
       justify-content:center !important;
-      min-width:155px !important;
+
+      /* box model */
+      box-sizing:border-box !important;
       height:44px !important;
+      min-height:44px !important;
+      min-width:155px !important;
       padding:0 18px !important;
+      margin:0 !important;
+      border:0 !important;
       border-radius:8px !important;
+
+      /* typography */
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif !important;
       font-weight:600 !important;
       font-size:15px !important;
+      line-height:1 !important;
+      letter-spacing:.2px !important;
+      text-decoration:none !important;
+
+      /* visuals */
       background:var(--google-blue) !important;
       color:#fff !important;
-      border:none !important;
-      cursor:pointer !important;
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif !important;
-      line-height:1 !important;
-      transition:filter .15s ease, transform .15s ease !important;
       box-shadow:none !important;
+      -webkit-appearance:none !important;
+      appearance:none !important;
+      cursor:pointer !important;
+
+      /* interaction */
+      transition:filter .15s ease, transform .15s ease !important;
     }
     .cta:hover, .goog-scheduling-button button:hover {
-      filter:brightness(0.95) !important;
-      transform:translateY(-1px) !important;
+      filter:brightness(0.95) !important; transform:translateY(-1px) !important;
     }
+    .cta:active, .goog-scheduling-button button:active {
+      transform:translateY(0) !important;
+    }
+    .goog-scheduling-button { display:inline-block !important; line-height:0 !important; }
 
     /* Hero */
     .hero{padding:6.5rem 0 4rem;position:relative;overflow:hidden}
@@ -133,6 +152,7 @@
           <div style="margin-top:1.25rem;display:flex;gap:.75rem;flex-wrap:wrap;align-items:center">
             <a class="cta" href="#tiers">See Tiers</a>
             <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry">Book an Event</a>
+            <!-- Official Google button renders here -->
             <span id="gcalBtnHero"></span>
           </div>
         </div>
@@ -218,6 +238,7 @@
         </div>
         <div style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center">
           <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry">Book an Event</a>
+          <!-- Official Google button renders here too -->
           <span id="gcalBtnContact"></span>
         </div>
       </div>
@@ -258,20 +279,24 @@
   <script>
     window.addEventListener('load', function(){
       const apptUrl = 'https://calendar.app.google/Avbnk3CPgdS3PkNc8';
-      const renderBtn = (targetId) => {
+
+      const mount = (targetId) => {
+        const el = document.getElementById(targetId);
+        if (!el) return;
         if (window.calendar && calendar.schedulingButton) {
           calendar.schedulingButton.load({
             url: apptUrl,
             color: '#039BE5',
             label: 'Book a Call',
-            target: document.getElementById(targetId)
+            target: el
           });
         } else {
-          setTimeout(()=>renderBtn(targetId), 100);
+          setTimeout(()=>mount(targetId), 100);
         }
       };
-      renderBtn('gcalBtnHero');
-      renderBtn('gcalBtnContact');
+
+      mount('gcalBtnHero');
+      mount('gcalBtnContact');
     });
   </script>
 </body>
