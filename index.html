@@ -5,21 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>RizeStride — Modern School Fundraising</title>
   <meta name="description" content="RizeStride helps schools run transparent, tech-enabled jog-a-thons that are fun, fair, and data-driven.">
-  <meta name="theme-color" content="#039BE5" />
+  <meta name="theme-color" content="#0077FF" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --google-blue:#039BE5;
-      --teal:#00C6AE; --coral:#FF6B4A;
-      --charcoal:#222831; --offwhite:#F7F9FB;
+      --blue:#0077FF;
+      --teal:#00C6AE;
+      --coral:#FF6B4A;
+      --charcoal:#222831;
+      --offwhite:#F7F9FB;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      color:var(--charcoal); background:linear-gradient(180deg,var(--offwhite),#fff);
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--charcoal);
+      background:linear-gradient(180deg,var(--offwhite),#fff);
     }
     a{color:inherit;text-decoration:none}
     .container{width:min(1100px,92%);margin-inline:auto}
@@ -32,49 +36,34 @@
     .logo-img{width:100%;height:100%;object-fit:cover}
     .brand{font-weight:800;letter-spacing:.2px}
 
-    /* === EXACT button normalization (our CTA + Google's) === */
-    .cta,
-    .goog-scheduling-button button {
-      display:inline-flex !important;
-      align-items:center !important;
-      justify-content:center !important;
-
-      /* box model */
-      box-sizing:border-box !important;
-      height:44px !important;
-      min-height:44px !important;
-      min-width:155px !important;
-      padding:0 18px !important;
-      margin:0 !important;
-      border:0 !important;
-      border-radius:8px !important;
-
-      /* typography */
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif !important;
-      font-weight:600 !important;
-      font-size:15px !important;
-      line-height:1 !important;
-      letter-spacing:.2px !important;
-      text-decoration:none !important;
-
-      /* visuals */
-      background:var(--google-blue) !important;
-      color:#fff !important;
-      box-shadow:none !important;
-      -webkit-appearance:none !important;
-      appearance:none !important;
-      cursor:pointer !important;
-
-      /* interaction */
-      transition:filter .15s ease, transform .15s ease !important;
+    /* Gradient CTA Buttons */
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:155px;
+      height:44px;
+      padding:0 18px;
+      border-radius:14px;
+      font-weight:600;
+      font-size:15px;
+      line-height:1;
+      background:linear-gradient(135deg,var(--blue),var(--teal));
+      color:#fff;
+      border:none;
+      cursor:pointer;
+      font-family:inherit;
+      transition:transform .15s ease,box-shadow .15s ease;
+      box-shadow:0 8px 20px rgba(0,119,255,.25);
+      text-align:center;
     }
-    .cta:hover, .goog-scheduling-button button:hover {
-      filter:brightness(0.95) !important; transform:translateY(-1px) !important;
+    .cta:hover{
+      transform:translateY(-1px);
+      box-shadow:0 10px 24px rgba(0,119,255,.32);
     }
-    .cta:active, .goog-scheduling-button button:active {
-      transform:translateY(0) !important;
+    .cta:active{
+      transform:translateY(0);
     }
-    .goog-scheduling-button { display:inline-block !important; line-height:0 !important; }
 
     /* Hero */
     .hero{padding:6.5rem 0 4rem;position:relative;overflow:hidden}
@@ -91,7 +80,7 @@
     .props{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
     .card{background:#fff;border:1px solid #e9eef5;border-radius:20px;padding:1.25rem;box-shadow:0 10px 30px rgba(2,6,23,.06)}
     .card h3{margin:.2rem 0 .4rem}
-    .tag{display:inline-block;font-weight:700;font-size:.78rem;color:#0077FF;letter-spacing:.06em}
+    .tag{display:inline-block;font-weight:700;font-size:.78rem;color:var(--blue);letter-spacing:.06em}
 
     /* Tiers */
     .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
@@ -100,20 +89,17 @@
     .price{font-weight:800;font-size:1.8rem}
     .inc{margin:.8rem 0 0;padding:0 0 0 1.1rem}
     .inc li{margin:.35rem 0}
-    .tier--popular{border-color:transparent;background:linear-gradient(180deg,#ffffff,#f7fbff);box-shadow:0 16px 44px rgba(2,6,23,.16)}
+    .tier--popular{border-color:transparent;background:linear-gradient(180deg,#ffffff,#f7fbff);box-shadow:0 16px 44px rgba(0,119,255,.16)}
     .tier--popular .badgelet{background:var(--coral);color:#fff;font-weight:700;border-radius:999px;padding:.25rem .6rem;font-size:.72rem;letter-spacing:.06em}
 
     /* CTA band */
-    .cta-band{background:linear-gradient(135deg,#0077FF,#00C6AE);color:#fff;border-radius:24px;padding:1.25rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .cta-band{background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;border-radius:24px;padding:1.25rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
     .cta-band p{margin:.2rem 0;opacity:.95}
     .copyable-email{cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 
     /* Footer */
     footer{padding:3rem 0;color:#556070}
     footer small{display:block;margin-top:.75rem}
-
-    /* Keep Google’s popup above everything */
-    .goog-scheduling-popup, .goog-scheduling-popup * { z-index: 2147483647 !important; }
 
     @media (max-width:920px){
       .hero{overflow:visible;}
@@ -152,8 +138,7 @@
           <div style="margin-top:1.25rem;display:flex;gap:.75rem;flex-wrap:wrap;align-items:center">
             <a class="cta" href="#tiers">See Tiers</a>
             <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry">Book an Event</a>
-            <!-- Official Google button renders here -->
-            <span id="gcalBtnHero"></span>
+            <a class="cta" href="https://calendar.app.google/Avbnk3CPgdS3PkNc8">Book a Call</a>
           </div>
         </div>
         <div class="hero-card">
@@ -238,8 +223,7 @@
         </div>
         <div style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center">
           <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry">Book an Event</a>
-          <!-- Official Google button renders here too -->
-          <span id="gcalBtnContact"></span>
+          <a class="cta" href="https://calendar.app.google/Avbnk3CPgdS3PkNc8">Book a Call</a>
         </div>
       </div>
     </section>
@@ -271,33 +255,6 @@
         setTimeout(()=>copyStatus.style.display='none',1400);
       });
     }
-  </script>
-
-  <!-- Google Calendar Appointment Scheduling -->
-  <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
-  <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
-  <script>
-    window.addEventListener('load', function(){
-      const apptUrl = 'https://calendar.app.google/Avbnk3CPgdS3PkNc8';
-
-      const mount = (targetId) => {
-        const el = document.getElementById(targetId);
-        if (!el) return;
-        if (window.calendar && calendar.schedulingButton) {
-          calendar.schedulingButton.load({
-            url: apptUrl,
-            color: '#039BE5',
-            label: 'Book a Call',
-            target: el
-          });
-        } else {
-          setTimeout(()=>mount(targetId), 100);
-        }
-      };
-
-      mount('gcalBtnHero');
-      mount('gcalBtnContact');
-    });
   </script>
 </body>
 </html>
