@@ -5,14 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>RizeStride — Modern School Fundraising</title>
   <meta name="description" content="RizeStride helps schools run transparent, tech-enabled jog-a-thons that are fun, fair, and data-driven.">
-  <meta property="og:title" content="RizeStride — Modern School Fundraising" />
-  <meta property="og:description" content="Transparent, tech-enabled jog-a-thons with premium execution and fair pricing." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="./og-rizestride.jpg" />
   <meta name="theme-color" content="#0077FF" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
@@ -34,7 +28,7 @@
     .nav{display:flex;align-items:center;justify-content:space-between;padding:.7rem 0}
     .badge{display:flex;align-items:center;gap:.7rem}
     .logo-wrap{width:72px;height:72px;border-radius:50%;overflow:hidden;display:inline-flex;align-items:center;justify-content:center}
-    .logo-img{width:100%;height:100%;object-fit:cover;image-rendering:auto}
+    .logo-img{width:100%;height:100%;object-fit:cover}
     .brand{font-weight:800;letter-spacing:.2px}
     .cta{
       display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
@@ -45,14 +39,14 @@
       border:none;cursor:pointer;font-family:inherit;text-align:center;
     }
     .cta:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,119,255,.32)}
-    .cta--dark{
-      background:linear-gradient(135deg,#111,#333)!important;
-      box-shadow:0 8px 20px rgba(0,0,0,.25)!important;
+    .cta--alt{
+      background:linear-gradient(135deg,var(--teal),var(--blue))!important;
+      box-shadow:0 8px 20px rgba(0,119,255,.25)!important;
       color:#fff!important;
     }
-    .cta--dark:hover{
+    .cta--alt:hover{
       transform:translateY(-1px);
-      box-shadow:0 10px 24px rgba(0,0,0,.35)!important;
+      box-shadow:0 10px 24px rgba(0,119,255,.35)!important;
     }
 
     /* Hero */
@@ -90,7 +84,7 @@
     footer{padding:3rem 0;color:#556070}
     footer small{display:block;margin-top:.75rem}
 
-    /* Remove stray Google-injected border */
+    /* Remove Google button border */
     .goog-scheduling-button, .goog-scheduling-button > div {
       border:none!important;
       box-shadow:none!important;
@@ -99,7 +93,6 @@
       margin:0!important;
     }
 
-    /* Responsive */
     @media (max-width:920px){
       .hero .grid{grid-template-columns:1fr}
       .props,.tiers{grid-template-columns:1fr}
@@ -108,11 +101,11 @@
   </style>
 </head>
 <body>
-  <header aria-label="Primary">
+  <header>
     <div class="container nav">
-      <div class="badge" aria-label="RizeStride logo">
+      <div class="badge">
         <span class="logo-wrap">
-          <img src="./rizestride-logo.png" alt="RizeStride logo" class="logo-img" loading="eager" decoding="async">
+          <img src="./rizestride-logo.png" alt="RizeStride logo" class="logo-img">
         </span>
         <span class="brand">RizeStride</span>
       </div>
@@ -127,19 +120,19 @@
           <div class="kicker">Modern school fundraising</div>
           <h1>Transparent, tech-enabled jog-a-thons that help schools keep more.</h1>
           <p class="lead">RizeStride combines a donation platform, RFID lap tracking, and clean event execution. Choose DIY, prize-included, or full-service — always at fair, transparent pricing.</p>
-          <div class="hero-badges" aria-label="Key benefits">
+          <div class="hero-badges">
             <span class="pill">Tiered Packages</span>
             <span class="pill">RFID lap tracking</span>
             <span class="pill">Powered by GroupRev</span>
             <span class="pill">South Orange County</span>
           </div>
           <div style="margin-top:1.25rem;display:flex;gap:.75rem;flex-wrap:wrap">
-            <a class="cta" href="#tiers" aria-label="See pricing tiers">See Tiers</a>
+            <a class="cta" href="#tiers">See Tiers</a>
             <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry">Book an Event</a>
             <button id="calendarButtonHero" class="cta" type="button">Book a Call</button>
           </div>
         </div>
-        <div class="hero-card" aria-label="Live preview">
+        <div class="hero-card">
           <img src="./mock-leaderboard.png" alt="Fundraising thermometer graphic" style="width:100%;border-radius:16px;border:1px solid #e9eef5"/>
           <div style="display:flex;gap:.5rem;margin-top:.8rem;align-items:center">
             <span class="tag">Live Platform</span>
@@ -172,11 +165,11 @@
 
     <section id="tiers" class="section">
       <div class="container">
-        <h2 style="margin:0 0 1rem">Service Tiers</h2>
-        <p style="margin:0 0 1.5rem;color:#556070">Choose your level of support.</p>
+        <h2>Service Tiers</h2>
+        <p style="color:#556070">Choose your level of support.</p>
 
         <div class="tiers">
-          <article class="tier" aria-label="Basic tier">
+          <article class="tier">
             <div class="price">5%</div>
             <h4>Basic — DIY + Platform</h4>
             <ul class="inc">
@@ -187,7 +180,7 @@
             </ul>
           </article>
 
-          <article class="tier tier--popular" aria-label="Plus tier">
+          <article class="tier tier--popular">
             <div style="display:flex;justify-content:space-between;align-items:center"><div class="price">15%</div><span class="badgelet">Most Popular</span></div>
             <h4>Plus — Prizes Included</h4>
             <ul class="inc">
@@ -198,7 +191,7 @@
             </ul>
           </article>
 
-          <article class="tier" aria-label="Full Service tier">
+          <article class="tier">
             <div class="price">25%</div>
             <h4>Full Service — Turnkey</h4>
             <ul class="inc">
@@ -212,18 +205,17 @@
       </div>
     </section>
 
-    <section class="section" aria-label="Contact">
+    <section class="section">
       <div class="container cta-band" id="contact">
         <div>
-          <h3 style="margin:.2rem 0">Book an Event or Call</h3>
+          <h3>Book an Event or Call</h3>
           <p>South Orange County schools get priority scheduling and founding-school perks.</p>
-          <p style="margin:.2rem 0 0;opacity:.9">Email: <strong id="contactEmail">events@rizestride.com</strong></p>
+          <p style="opacity:.9">Email: <strong id="contactEmail">events@rizestride.com</strong></p>
         </div>
-
         <div style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center">
           <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry">Book an Event</a>
           <button id="calendarButton" class="cta" type="button">Book a Call</button>
-          <button id="copyEmailBtn" class="cta cta--dark" type="button">Copy Email</button>
+          <button id="copyEmailBtn" class="cta cta--alt" type="button">Copy Email</button>
           <span id="copyStatus" aria-live="polite" style="font-weight:600;display:none">Copied!</span>
         </div>
       </div>
@@ -231,67 +223,47 @@
   </main>
 
   <footer>
-    <div class="container" style="display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap">
-      <div>
-        <strong>RizeStride</strong><br/>
-        <small>Transparent, tech-enabled fundraising.</small>
-      </div>
-      <div>
-        <small>© <span id="y"></span> RizeStride · South Orange County, CA</small>
-      </div>
+    <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap">
+      <div><strong>RizeStride</strong><br/><small>Transparent, tech-enabled fundraising.</small></div>
+      <div><small>© <span id="y"></span> RizeStride · South Orange County, CA</small></div>
     </div>
   </footer>
 
-  <!-- Year + Copy Email -->
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
 
+    // Copy email function
     (function(){
-      const btn = document.getElementById('copyEmailBtn');
-      const email = document.getElementById('contactEmail')?.textContent?.trim();
-      const status = document.getElementById('copyStatus');
-      if (!btn || !email) return;
-
-      btn.addEventListener('click', async () => {
-        try {
-          await navigator.clipboard.writeText(email);
-        } catch {
-          const temp = document.createElement('input');
-          temp.value = email;
-          document.body.appendChild(temp);
-          temp.select();
-          document.execCommand('copy');
-          document.body.removeChild(temp);
+      const btn=document.getElementById('copyEmailBtn');
+      const email=document.getElementById('contactEmail')?.textContent?.trim();
+      const status=document.getElementById('copyStatus');
+      if(!btn||!email)return;
+      btn.addEventListener('click',async()=>{
+        try{await navigator.clipboard.writeText(email);}
+        catch{
+          const temp=document.createElement('input');
+          temp.value=email;document.body.appendChild(temp);temp.select();
+          document.execCommand('copy');document.body.removeChild(temp);
         }
-        status.style.display = 'inline';
-        status.textContent = 'Copied!';
-        setTimeout(() => { status.style.display = 'none'; }, 1400);
+        status.style.display='inline';status.textContent='Copied!';
+        setTimeout(()=>{status.style.display='none';},1400);
       });
     })();
   </script>
 
-  <!-- Google Calendar Appointment Scheduling (custom styled popup) -->
+  <!-- Google Calendar Appointment Scheduling -->
   <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
   <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
   <script>
-    window.addEventListener('load', function() {
-      const apptUrl = 'https://calendar.app.google/Avbnk3CPgdS3PkNc8';
-
-      function attachCalendar(btnId){
-        const btn = document.getElementById(btnId);
-        if (!btn) return;
-        btn.addEventListener('click', function() {
-          calendar.schedulingButton.load({
-            url: apptUrl,
-            color: '#0077FF',
-            label: 'Book a Call',
-            target: document.body
-          });
-        });
-      }
-
-      attachCalendar('calendarButton');
-      attachCalendar('calendarButtonHero');
+    window.addEventListener('load',function(){
+      const apptUrl='https://calendar.app.google/Avbnk3CPgdS3PkNc8';
+      ['calendarButton','calendarButtonHero'].forEach(id=>{
+        const btn=document.getElementById(id);
+        if(!btn)return;
+        btn.addEventListener('click',()=>calendar.schedulingButton.load({
+          url:apptUrl,color:'#0077FF',label:'Book a Call',target:document.body
+        }));
+      });
     });
   </script>
 </body>
