@@ -268,18 +268,12 @@
 
       // Helper to find the injected Google button inside our hidden mount
       function getGoogleInjectedButton(){
-        // Try a couple selectors Google uses
         return document.querySelector('#gcalHiddenMount .goog-scheduling-button button') ||
                document.querySelector('#gcalHiddenMount .goog-scheduling-button');
       }
 
       function openBooking(){
-        // On mobile, open in a new tab for reliability
-        if (window.matchMedia('(max-width: 920px)').matches) {
-          window.open(apptUrl, '_blank', 'noopener');
-          return;
-        }
-        // On desktop, trigger Google's flyout immediately (no extra button shown)
+        // Always try popup (no mobile new-tab)
         const gbtn = getGoogleInjectedButton();
         if (gbtn) {
           gbtn.click();
