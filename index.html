@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>RizeStride — Modern School Fundraising</title>
   <meta name="description" content="RizeStride helps schools run transparent, tech-enabled jog-a-thons that are fun, fair, and data-driven.">
-  <meta name="theme-color" content="#0077FF" />
+  <meta name="theme-color" content="#039BE5" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --blue:#039BE5; /* match Google scheduling button default */
+      --google-blue:#039BE5;
       --teal:#00C6AE; --coral:#FF6B4A;
       --charcoal:#222831; --offwhite:#F7F9FB;
     }
@@ -32,25 +32,29 @@
     .logo-img{width:100%;height:100%;object-fit:cover}
     .brand{font-weight:800;letter-spacing:.2px}
 
-    /* CTA style to MATCH Google's button */
-    .cta{
-      display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
-      min-width:150px;padding:.75rem 1rem;border-radius:8px;font-weight:600;
-      background:var(--blue);color:#fff;border:none;cursor:pointer;font-family:inherit;text-align:center;
-      transition:filter .15s ease, transform .15s ease;
-    }
-    .cta:hover{filter:brightness(0.95);transform:translateY(-1px)}
-    .cta:active{transform:translateY(0)}
-    .cta:focus{outline:2px solid #1e88e5; outline-offset:2px}
-
-    /* Make Google’s button match our CTAs */
-    .goog-scheduling-button button{
-      min-width:150px !important;
-      padding:.75rem 1rem !important;
+    /* CTA unified style */
+    .cta, .goog-scheduling-button button {
+      display:inline-flex !important;
+      align-items:center !important;
+      justify-content:center !important;
+      min-width:155px !important;
+      height:44px !important;
+      padding:0 18px !important;
       border-radius:8px !important;
       font-weight:600 !important;
+      font-size:15px !important;
+      background:var(--google-blue) !important;
+      color:#fff !important;
+      border:none !important;
+      cursor:pointer !important;
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif !important;
+      line-height:1 !important;
+      transition:filter .15s ease, transform .15s ease !important;
       box-shadow:none !important;
+    }
+    .cta:hover, .goog-scheduling-button button:hover {
+      filter:brightness(0.95) !important;
+      transform:translateY(-1px) !important;
     }
 
     /* Hero */
@@ -129,7 +133,6 @@
           <div style="margin-top:1.25rem;display:flex;gap:.75rem;flex-wrap:wrap;align-items:center">
             <a class="cta" href="#tiers">See Tiers</a>
             <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry">Book an Event</a>
-            <!-- Official Google button renders here -->
             <span id="gcalBtnHero"></span>
           </div>
         </div>
@@ -215,7 +218,6 @@
         </div>
         <div style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center">
           <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry">Book an Event</a>
-          <!-- Official Google button renders here too -->
           <span id="gcalBtnContact"></span>
         </div>
       </div>
@@ -256,40 +258,20 @@
   <script>
     window.addEventListener('load', function(){
       const apptUrl = 'https://calendar.app.google/Avbnk3CPgdS3PkNc8';
-
-      // Render Google's official button in the two targets
-      if (window.calendar && calendar.schedulingButton) {
-        calendar.schedulingButton.load({
-          url: apptUrl,
-          color: '#039BE5',
-          label: 'Book a Call',
-          target: document.getElementById('gcalBtnHero')
-        });
-        calendar.schedulingButton.load({
-          url: apptUrl,
-          color: '#039BE5',
-          label: 'Book a Call',
-          target: document.getElementById('gcalBtnContact')
-        });
-      } else {
-        // If script hasn't finished yet, retry briefly
-        let tries = 0;
-        const iv = setInterval(()=>{
-          if (window.calendar && calendar.schedulingButton) {
-            clearInterval(iv);
-            calendar.schedulingButton.load({
-              url: apptUrl, color: '#039BE5', label: 'Book a Call',
-              target: document.getElementById('gcalBtnHero')
-            });
-            calendar.schedulingButton.load({
-              url: apptUrl, color: '#039BE5', label: 'Book a Call',
-              target: document.getElementById('gcalBtnContact')
-            });
-          } else if (++tries > 40) {
-            clearInterval(iv);
-          }
-        }, 100);
-      }
+      const renderBtn = (targetId) => {
+        if (window.calendar && calendar.schedulingButton) {
+          calendar.schedulingButton.load({
+            url: apptUrl,
+            color: '#039BE5',
+            label: 'Book a Call',
+            target: document.getElementById(targetId)
+          });
+        } else {
+          setTimeout(()=>renderBtn(targetId), 100);
+        }
+      };
+      renderBtn('gcalBtnHero');
+      renderBtn('gcalBtnContact');
     });
   </script>
 </body>
