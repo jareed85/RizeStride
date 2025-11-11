@@ -42,9 +42,9 @@
       align-items:center;
       justify-content:center;
       gap:.55rem;
-      min-width:175px;          /* unified width */
-      height:46px;              /* unified height */
-      padding:0 20px;           /* consistent padding */
+      min-width:175px;
+      height:46px;
+      padding:0 20px;
       border-radius:14px;
       font-weight:600;
       font-size:15px;
@@ -62,7 +62,6 @@
     .cta:hover{ transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,119,255,.32) }
     .cta:active{ transform:translateY(0) }
 
-    /* Icon inside CTA */
     .cta .icon{
       width:18px;
       height:18px;
@@ -98,8 +97,18 @@
     .tier--popular{border-color:transparent;background:linear-gradient(180deg,#ffffff,#f7fbff);box-shadow:0 16px 44px rgba(0,119,255,.16)}
     .tier--popular .badgelet{background:var(--coral);color:#fff;font-weight:700;border-radius:999px;padding:.25rem .6rem;font-size:.72rem;letter-spacing:.06em}
 
-    /* CTA band */
-    .cta-band{background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;border-radius:24px;padding:1.25rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+    /* CTA band (bottom) */
+    .cta-band{
+      background:linear-gradient(135deg,var(--blue),var(--teal));
+      color:#fff;
+      border-radius:24px;
+      padding:1.25rem 1.2rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      flex-wrap:nowrap; /* fix layout */
+    }
     .cta-band p{margin:.2rem 0;opacity:.95}
     .copyable-email{cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 
@@ -113,6 +122,7 @@
       .props,.tiers{grid-template-columns:1fr}
       .logo-wrap{width:56px;height:56px}
       .cta{min-width:100%;height:50px}
+      .cta-band{flex-wrap:wrap;justify-content:center;text-align:center}
     }
   </style>
 </head>
@@ -207,14 +217,15 @@
       </div>
     </section>
 
+    <!-- Bottom CTA -->
     <section class="section">
       <div class="container cta-band" id="contact">
-        <div>
+        <div style="flex:1;min-width:250px">
           <h3>Book an Event or Schedule a Call</h3>
           <p>South Orange County schools get priority scheduling and founding-school perks.</p>
           <p style="opacity:.9">Email: <strong id="contactEmail" class="copyable-email">events@rizestride.com</strong> <span id="copyStatus" style="display:none;font-weight:600">Copied!</span></p>
         </div>
-        <div style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center">
+        <div style="display:flex;gap:.75rem;align-items:center;flex-shrink:0">
           <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry"><span class="label">Book an Event</span></a>
           <a class="cta" href="https://calendar.app.google/Avbnk3CPgdS3PkNc8">
             <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
