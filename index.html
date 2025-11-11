@@ -36,15 +36,15 @@
     .logo-img{width:100%;height:100%;object-fit:cover}
     .brand{font-weight:800;letter-spacing:.2px}
 
-    /* Gradient CTA Buttons */
+    /* Gradient CTA Buttons - unified sizing */
     .cta{
       display:inline-flex;
       align-items:center;
       justify-content:center;
       gap:.55rem;
-      min-width:155px;
-      height:44px;
-      padding:0 18px;
+      min-width:175px;          /* unified width */
+      height:46px;              /* unified height */
+      padding:0 20px;           /* consistent padding */
       border-radius:14px;
       font-weight:600;
       font-size:15px;
@@ -57,6 +57,7 @@
       transition:transform .15s ease,box-shadow .15s ease;
       box-shadow:0 8px 20px rgba(0,119,255,.25);
       text-align:center;
+      text-wrap:nowrap;
     }
     .cta:hover{ transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,119,255,.32) }
     .cta:active{ transform:translateY(0) }
@@ -68,9 +69,7 @@
       flex:0 0 18px;
       display:inline-block;
     }
-    .cta .label{
-      display:inline-block;
-    }
+    .cta .label{ display:inline-block }
 
     /* Hero */
     .hero{padding:6.5rem 0 4rem;position:relative;overflow:hidden}
@@ -100,7 +99,7 @@
     .tier--popular .badgelet{background:var(--coral);color:#fff;font-weight:700;border-radius:999px;padding:.25rem .6rem;font-size:.72rem;letter-spacing:.06em}
 
     /* CTA band */
-    .cta-band{background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;border-radius:24px;padding:1.25rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .cta-band{background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;border-radius:24px;padding:1.25rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
     .cta-band p{margin:.2rem 0;opacity:.95}
     .copyable-email{cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 
@@ -113,6 +112,7 @@
       .hero .grid{grid-template-columns:1fr}
       .props,.tiers{grid-template-columns:1fr}
       .logo-wrap{width:56px;height:56px}
+      .cta{min-width:100%;height:50px}
     }
   </style>
 </head>
