@@ -183,6 +183,41 @@
     footer{padding:3rem 0;color:#556070}
     footer small{display:block;margin-top:.75rem}
 
+    /* ===== Scroll reveal animations ===== */
+    .reveal{
+      opacity:0;
+      transform:translateY(16px);
+      transition:opacity .5s ease, transform .5s ease;
+    }
+    .reveal.in-view{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    /* Slightly longer + stagger on tiers */
+    .tiers .tier.reveal{
+      transition-duration:.55s;
+    }
+    .tiers .tier.reveal:nth-child(2){
+      transition-delay:.08s;
+    }
+    .tiers .tier.reveal:nth-child(3){
+      transition-delay:.16s;
+    }
+
+    /* Reduced motion: disable animations */
+    @media (prefers-reduced-motion: reduce){
+      .reveal,
+      .reveal.in-view{
+        opacity:1 !important;
+        transform:none !important;
+        transition:none !important;
+      }
+      .floating-cta{
+        transition:none;
+      }
+    }
+
     @media (max-width:920px){
       body{padding-bottom:70px;} /* avoid content under floating bar */
       .hero{overflow:visible;}
@@ -241,7 +276,8 @@
   <main>
     <section class="hero">
       <div class="container grid">
-        <div>
+        <!-- Hero text column with reveal -->
+        <div class="reveal">
           <div class="kicker">Modern school fundraising</div>
           <h1>Transparent, tech-enabled jog-a-thons that help schools keep more.</h1>
           <p class="lead">RizeStride combines a donation platform, RFID lap tracking, and clean event execution. Choose DIY, prize-included, or full-service — always at fair, transparent pricing.</p>
@@ -275,7 +311,8 @@
           </div>
         </div>
 
-        <div class="hero-card">
+        <!-- Hero card with slight delayed reveal -->
+        <div class="hero-card reveal">
           <img src="./mock-leaderboard.png" alt="Fundraising thermometer graphic" style="width:100%;border-radius:16px;border:1px solid #e9eef5"/>
           <div style="display:flex;gap:.5rem;margin-top:.8rem;align-items:center">
             <span class="tag">Live Platform</span>
@@ -286,11 +323,11 @@
 
     <section id="tiers" class="section">
       <div class="container">
-        <h2>Service Tiers</h2>
-        <p style="color:#556070">Choose your level of support.</p>
+        <h2 class="reveal">Service Tiers</h2>
+        <p style="color:#556070" class="reveal">Choose your level of support.</p>
 
         <div class="tiers">
-          <article class="tier">
+          <article class="tier reveal">
             <div class="price">5%</div>
             <h4>Basic — DIY + Platform</h4>
             <ul class="inc">
@@ -301,7 +338,7 @@
             </ul>
           </article>
 
-          <article class="tier tier--popular">
+          <article class="tier tier--popular reveal">
             <div style="display:flex;justify-content:space-between;align-items:center">
               <div class="price">15%</div>
               <span class="badgelet">Most Popular</span>
@@ -315,7 +352,7 @@
             </ul>
           </article>
 
-          <article class="tier">
+          <article class="tier reveal">
             <div class="price">25%</div>
             <h4>Full Service — Turnkey</h4>
             <ul class="inc">
@@ -331,7 +368,7 @@
 
     <!-- Bottom CTA -->
     <section class="section">
-      <div class="container cta-band" id="contact">
+      <div class="container cta-band reveal" id="contact">
         <div style="flex:1;min-width:250px">
           <h3>Book an Event or Schedule a Call</h3>
           <p>South Orange County schools get priority scheduling.</p>
@@ -420,9 +457,10 @@
       });
     }
 
-    // Scroll-trigger for header shadow + floating CTA
+    // Scroll-trigger for header shadow + floating CTA + reveals
     const headerEl = document.querySelector('header');
     const mobileBar = document.getElementById('mobileScheduleBar');
+    const revealEls = Array.from(document.querySelectorAll('.reveal'));
 
     function onScroll() {
       const y = window.scrollY || window.pageYOffset || 0;
@@ -438,21 +476,39 @@
       const isMobile = window.matchMedia('(max-width: 920px)').matches;
       if (!isMobile) {
         mobileBar.classList.remove('show');
-        return;
-      }
-
-      // Show bar after user scrolls a bit
-      if (y > 200) {
-        mobileBar.classList.add('show');
       } else {
-        mobileBar.classList.remove('show');
+        // Show bar after user scrolls a bit
+        if (y > 200) {
+          mobileBar.classList.add('show');
+        } else {
+          mobileBar.classList.remove('show');
+        }
       }
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
-    // Run once on load
-    onScroll();
+    onScroll(); // run once on load
+
+    // IntersectionObserver for reveals
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        root: null,
+        threshold: 0.15
+      });
+
+      revealEls.forEach(el => io.observe(el));
+    } else {
+      // Fallback: just show everything
+      revealEls.forEach(el => el.classList.add('in-view'));
+    }
   </script>
 </body>
 </html>
