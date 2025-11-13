@@ -80,6 +80,14 @@
     .hero-badges{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem}
     .pill{background:linear-gradient(180deg,#fff,#f2f6fb);border:1px solid #e6edf6;border-radius:999px;padding:.45rem .75rem;font-size:.9rem;font-weight:600;color:#334155}
 
+    .hero-actions{
+      margin-top:1.25rem;
+      display:flex;
+      gap:.75rem;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
     /* Sections */
     .section{padding:4rem 0;border-top:1px solid #eef2f7}
     .props{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
@@ -112,6 +120,13 @@
     .cta-band p{margin:.2rem 0;opacity:.95}
     .copyable-email{cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 
+    .cta-band-actions{
+      display:flex;
+      gap:.75rem;
+      align-items:center;
+      flex-shrink:0;
+    }
+
     /* Floating mobile CTA */
     .floating-cta{
       position:fixed;
@@ -143,24 +158,44 @@
       background:#fff;
       color:var(--charcoal);
     }
-    .floating-cta .cta svg rect,
-    .floating-cta .cta svg path,
-    .floating-cta .cta svg rect{
-      stroke:var(--charcoal);
-    }
 
     /* Footer */
     footer{padding:3rem 0;color:#556070}
     footer small{display:block;margin-top:.75rem}
 
     @media (max-width:920px){
-      body{padding-bottom:70px;} /* avoid content under bar */
+      body{padding-bottom:70px;} /* avoid content under floating bar */
       .hero{overflow:visible;}
       .hero .grid{grid-template-columns:1fr}
       .props,.tiers{grid-template-columns:1fr}
       .logo-wrap{width:56px;height:56px}
-      .cta{min-width:100%;height:50px}
-      .cta-band{flex-wrap:wrap;justify-content:center;text-align:center}
+
+      /* Header button compact on mobile */
+      .nav{
+        flex-wrap:wrap;
+        gap:.5rem;
+      }
+      .nav .cta{
+        min-width:auto;
+        height:40px;
+        padding:0 16px;
+        font-size:14px;
+      }
+
+      /* Stack main CTAs full-width where it matters */
+      .hero-actions .cta,
+      .cta-band-actions .cta{
+        flex:1 1 100%;
+        min-width:0;
+        height:50px;
+      }
+
+      .cta-band{
+        flex-wrap:wrap;
+        justify-content:center;
+        text-align:center;
+      }
+
       .floating-cta{display:block;}
     }
   </style>
@@ -174,7 +209,9 @@
         </span>
         <span class="brand">RizeStride</span>
       </div>
-      <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry"><span class="label">Book an Event</span></a>
+      <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry">
+        <span class="label">Book an Event</span>
+      </a>
     </div>
   </header>
 
@@ -191,9 +228,10 @@
             <span class="pill">Powered by GroupRev</span>
             <span class="pill">South Orange County</span>
           </div>
-          <div style="margin-top:1.25rem;display:flex;gap:.75rem;flex-wrap:wrap;align-items:center">
-
-            <a class="cta" href="#tiers"><span class="label">See Tiers</span></a>
+          <div class="hero-actions">
+            <a class="cta" href="#tiers">
+              <span class="label">See Tiers</span>
+            </a>
 
             <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry">
               <span class="label">Book an Event</span>
@@ -241,7 +279,10 @@
           </article>
 
           <article class="tier tier--popular">
-            <div style="display:flex;justify-content:space-between;align-items:center"><div class="price">15%</div><span class="badgelet">Most Popular</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div class="price">15%</div>
+              <span class="badgelet">Most Popular</span>
+            </div>
             <h4>Plus — Prizes Included</h4>
             <ul class="inc">
               <li>Everything in Basic</li>
@@ -271,10 +312,12 @@
         <div style="flex:1;min-width:250px">
           <h3>Book an Event or Schedule a Call</h3>
           <p>South Orange County schools get priority scheduling.</p>
-          <p style="opacity:.9">Email: <strong id="contactEmail" class="copyable-email">events@rizestride.com</strong> <span id="copyStatus" style="display:none;font-weight:600">Copied!</span></p>
+          <p style="opacity:.9">
+            Email: <strong id="contactEmail" class="copyable-email">events@rizestride.com</strong>
+            <span id="copyStatus" style="display:none;font-weight:600">Copied!</span>
+          </p>
         </div>
-        <div style="display:flex;gap:.75rem;align-items:center;flex-shrink:0">
-
+        <div class="cta-band-actions">
           <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry">
             <span class="label">Book an Event</span>
           </a>
@@ -298,8 +341,13 @@
 
   <footer>
     <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap">
-      <div><strong>RizeStride</strong><br/><small>Transparent, tech-enabled fundraising.</small></div>
-      <div><small>© <span id="y"></span> RizeStride · South Orange County, CA</small></div>
+      <div>
+        <strong>RizeStride</strong><br/>
+        <small>Transparent, tech-enabled fundraising.</small>
+      </div>
+      <div>
+        <small>© <span id="y"></span> RizeStride · South Orange County, CA</small>
+      </div>
     </div>
   </footer>
 
@@ -329,19 +377,23 @@
     document.getElementById('y').textContent = new Date().getFullYear();
 
     // Copy email when clicked
-    const emailEl=document.getElementById('contactEmail');
-    const copyStatus=document.getElementById('copyStatus');
-    if(emailEl){
-      emailEl.addEventListener('click',async()=>{
-        const email=emailEl.textContent.trim();
-        try{await navigator.clipboard.writeText(email);}
-        catch{
-          const temp=document.createElement('input');
-          temp.value=email;document.body.appendChild(temp);temp.select();
-          document.execCommand('copy');document.body.removeChild(temp);
+    const emailEl = document.getElementById('contactEmail');
+    const copyStatus = document.getElementById('copyStatus');
+    if (emailEl) {
+      emailEl.addEventListener('click', async () => {
+        const email = emailEl.textContent.trim();
+        try {
+          await navigator.clipboard.writeText(email);
+        } catch {
+          const temp = document.createElement('input');
+          temp.value = email;
+          document.body.appendChild(temp);
+          temp.select();
+          document.execCommand('copy');
+          document.body.removeChild(temp);
         }
-        copyStatus.style.display='inline';
-        setTimeout(()=>copyStatus.style.display='none',1400);
+        copyStatus.style.display = 'inline';
+        setTimeout(() => copyStatus.style.display = 'none', 1400);
       });
     }
   </script>
