@@ -107,7 +107,7 @@
       align-items:center;
       justify-content:space-between;
       gap:1rem;
-      flex-wrap:nowrap; /* fix layout */
+      flex-wrap:nowrap;
     }
     .cta-band p{margin:.2rem 0;opacity:.95}
     .copyable-email{cursor:pointer;text-decoration:underline;text-underline-offset:3px}
@@ -153,9 +153,18 @@
             <span class="pill">South Orange County</span>
           </div>
           <div style="margin-top:1.25rem;display:flex;gap:.75rem;flex-wrap:wrap;align-items:center">
+
             <a class="cta" href="#tiers"><span class="label">See Tiers</span></a>
-            <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry"><span class="label">Book an Event</span></a>
-            <a class="cta" href="https://calendar.app.google/Avbnk3CPgdS3PkNc8">
+
+            <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry">
+              <span class="label">Book an Event</span>
+            </a>
+
+            <!-- UPDATED: open in new tab -->
+            <a class="cta" 
+               href="https://calendar.app.google/Avbnk3CPgdS3PkNc8"
+               target="_blank"
+               rel="noopener noreferrer">
               <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <rect x="3" y="4" width="18" height="17" rx="2" stroke="white" stroke-width="2"/>
                 <path d="M8 2v4M16 2v4M3 9h18" stroke="white" stroke-width="2" stroke-linecap="round"/>
@@ -166,6 +175,7 @@
             </a>
           </div>
         </div>
+
         <div class="hero-card">
           <img src="./mock-leaderboard.png" alt="Fundraising thermometer graphic" style="width:100%;border-radius:16px;border:1px solid #e9eef5"/>
           <div style="display:flex;gap:.5rem;margin-top:.8rem;align-items:center">
@@ -226,8 +236,16 @@
           <p style="opacity:.9">Email: <strong id="contactEmail" class="copyable-email">events@rizestride.com</strong> <span id="copyStatus" style="display:none;font-weight:600">Copied!</span></p>
         </div>
         <div style="display:flex;gap:.75rem;align-items:center;flex-shrink:0">
-          <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry"><span class="label">Book an Event</span></a>
-          <a class="cta" href="https://calendar.app.google/Avbnk3CPgdS3PkNc8">
+
+          <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry">
+            <span class="label">Book an Event</span>
+          </a>
+
+          <!-- UPDATED: open in new tab -->
+          <a class="cta" 
+             href="https://calendar.app.google/Avbnk3CPgdS3PkNc8"
+             target="_blank"
+             rel="noopener noreferrer">
             <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <rect x="3" y="4" width="18" height="17" rx="2" stroke="white" stroke-width="2"/>
               <path d="M8 2v4M16 2v4M3 9h18" stroke="white" stroke-width="2" stroke-linecap="round"/>
