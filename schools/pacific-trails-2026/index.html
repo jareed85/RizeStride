@@ -37,6 +37,11 @@
       position:sticky;
       top:0;
       z-index:10;
+      transition:box-shadow .18s ease, background-color .18s ease;
+    }
+    header.scrolled{
+      background:#ffffff;
+      box-shadow:0 4px 12px rgba(15,23,42,.12);
     }
     .nav{
       display:flex;
@@ -616,7 +621,21 @@
   </footer>
 
   <script>
+    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Header scroll shadow
+    const headerEl = document.querySelector('header');
+    function onScroll() {
+      const y = window.scrollY || window.pageYOffset || 0;
+      if (y > 10) {
+        headerEl.classList.add('scrolled');
+      } else {
+        headerEl.classList.remove('scrolled');
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
   </script>
 </body>
 </html>
