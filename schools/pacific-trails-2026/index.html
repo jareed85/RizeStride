@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pacific Trails School Jog-a-thon 2026 • RizeStride</title>
+  <meta name="description" content="Support Pacific Trails School’s 2026 jog-a-thon. Learn about the event and how to donate.">
+  <meta name="theme-color" content="#0077FF" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --blue:#0077FF;
+      --teal:#00C6AE;
+      --charcoal:#222831;
+      --offwhite:#F7F9FB;
+      --border:#e3eaf4;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--charcoal);
+      background:linear-gradient(180deg,var(--offwhite),#ffffff);
+    }
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1000px,92%);margin-inline:auto}
+
+    /* Header */
+    header{
+      padding:.9rem 0;
+      border-bottom:1px solid var(--border);
+      background:#ffffffee;
+      backdrop-filter:saturate(180%) blur(8px);
+      position:sticky;
+      top:0;
+      z-index:10;
+    }
+    .nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:1rem;
+      flex-wrap:wrap;
+    }
+    .nav-left{
+      display:flex;
+      align-items:center;
+      gap:.8rem;
+      flex-wrap:wrap;
+    }
+    .rs-logo-wrap{
+      width:52px;
+      height:52px;
+      border-radius:50%;
+      overflow:hidden;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:#f1f5f9;
+    }
+    .rs-logo{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .nav-brand{
+      display:flex;
+      flex-direction:column;
+      gap:.1rem;
+    }
+    .nav-brand-main{
+      font-weight:800;
+      letter-spacing:.16px;
+      font-size:1rem;
+    }
+    .nav-brand-sub{
+      font-size:.8rem;
+      color:#64748b;
+    }
+    .nav-school{
+      font-size:.9rem;
+      font-weight:600;
+      color:#0f172a;
+    }
+
+    /* Buttons */
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.35rem;
+      min-width:150px;
+      height:42px;
+      padding:0 16px;
+      border-radius:999px;
+      font-weight:600;
+      font-size:.93rem;
+      line-height:1;
+      background:linear-gradient(135deg,var(--blue),var(--teal));
+      color:#fff;
+      border:none;
+      cursor:pointer;
+      font-family:inherit;
+      transition:transform .14s ease,box-shadow .14s ease;
+      box-shadow:0 8px 18px rgba(0,119,255,.25);
+      text-align:center;
+      white-space:nowrap;
+    }
+    .cta:hover{ transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,119,255,.32) }
+    .cta:active{ transform:translateY(0) }
+    .cta--outline{
+      background:#fff;
+      color:var(--blue);
+      box-shadow:none;
+      border:1px solid var(--border);
+    }
+
+    /* Hero */
+    .hero{
+      padding:2.8rem 0 2.5rem;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:2.5rem;
+      align-items:center;
+    }
+    .hero-kicker{
+      font-weight:700;
+      color:var(--teal);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:.8rem;
+    }
+    .hero h1{
+      margin:.4rem 0 .6rem;
+      font-size:clamp(1.9rem,3vw,2.4rem);
+      line-height:1.05;
+    }
+    .hero-school{
+      font-weight:600;
+      color:#0f172a;
+      margin-bottom:.2rem;
+    }
+    .hero-date{
+      color:#64748b;
+      font-size:.95rem;
+      margin-bottom:.8rem;
+    }
+    .hero-lead{
+      color:#475569;
+      font-size:1rem;
+      max-width:45ch;
+    }
+    .hero-actions{
+      margin-top:1.1rem;
+      display:flex;
+      flex-wrap:wrap;
+      gap:.7rem;
+      align-items:center;
+    }
+    .hero-note{
+      font-size:.8rem;
+      color:#6b7280;
+    }
+
+    .hero-card{
+      border-radius:22px;
+      background:#fff;
+      border:1px solid var(--border);
+      box-shadow:0 16px 40px rgba(15,23,42,.08);
+      overflow:hidden;
+    }
+    .hero-img{
+      width:100%;
+      display:block;
+      max-height:260px;
+      object-fit:cover;
+    }
+    .hero-card-body{
+      padding:1rem 1.2rem 1.15rem;
+    }
+    .hero-pill-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.45rem;
+      font-size:.78rem;
+    }
+    .pill{
+      border-radius:999px;
+      background:#f8fafc;
+      border:1px solid #e2e8f0;
+      padding:.25rem .65rem;
+      font-weight:600;
+      color:#334155;
+    }
+
+    /* Section wrapper */
+    .section{
+      padding:2.5rem 0;
+      border-top:1px solid #eef2f7;
+    }
+    .section h2{
+      margin:0 0 .4rem;
+      font-size:1.4rem;
+    }
+    .section-lead{
+      margin:0 0 1.2rem;
+      color:#6b7280;
+      font-size:.95rem;
+    }
+
+    /* Cards / layouts */
+    .two-col{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:1.5rem;
+      align-items:flex-start;
+    }
+    .card{
+      border-radius:18px;
+      background:#fff;
+      border:1px solid var(--border);
+      padding:1.1rem 1.2rem;
+      box-shadow:0 10px 28px rgba(15,23,42,.06);
+      font-size:.95rem;
+      color:#374151;
+    }
+    .card h3{
+      margin:.1rem 0 .35rem;
+      font-size:1.05rem;
+    }
+    .muted{
+      color:#6b7280;
+      font-size:.9rem;
+    }
+
+    /* How to donate */
+    .steps{
+      list-style:none;
+      padding:0;
+      margin:.4rem 0 0;
+      counter-reset:step;
+    }
+    .steps li{
+      counter-increment:step;
+      display:flex;
+      align-items:flex-start;
+      gap:.6rem;
+      margin-bottom:.5rem;
+    }
+    .steps li::before{
+      content:counter(step);
+      width:22px;
+      height:22px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--blue),var(--teal));
+      color:#fff;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-size:.8rem;
+      font-weight:700;
+      flex-shrink:0;
+    }
+
+    /* Schedule table */
+    table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:.9rem;
+      margin-top:.4rem;
+    }
+    th,td{
+      padding:.4rem .5rem;
+      text-align:left;
+      border-bottom:1px solid #e5e7eb;
+    }
+    th{
+      background:#f9fafb;
+      font-weight:600;
+      color:#4b5563;
+    }
+
+    /* FAQ */
+    .faq{
+      display:flex;
+      flex-direction:column;
+      gap:.75rem;
+      margin-top:.4rem;
+    }
+    .faq-item h3{
+      margin:0 0 .1rem;
+      font-size:.98rem;
+    }
+    .faq-item p{
+      margin:0;
+      font-size:.9rem;
+      color:#4b5563;
+    }
+
+    /* Contact band */
+    .contact{
+      margin-top:1.4rem;
+      border-radius:18px;
+      background:linear-gradient(135deg,var(--blue),var(--teal));
+      color:#fff;
+      padding:1rem 1.1rem;
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:.75rem;
+      justify-content:space-between;
+    }
+    .contact p{
+      margin:.1rem 0;
+      font-size:.9rem;
+    }
+    .contact-email{
+      font-weight:600;
+      text-decoration:underline;
+      text-underline-offset:3px;
+    }
+
+    /* Footer */
+    footer{
+      padding:2.5rem 0 2rem;
+      color:#6b7280;
+      font-size:.82rem;
+    }
+    footer small{display:block;margin-top:.3rem}
+
+    @media (max-width:880px){
+      .hero-grid,
+      .two-col{
+        grid-template-columns:1fr;
+      }
+      .hero{
+        padding:2.1rem 0 2rem;
+      }
+      .hero-card{
+        max-width:520px;
+        margin-inline:auto;
+      }
+    }
+
+    @media (max-width:640px){
+      .nav{
+        align-items:flex-start;
+      }
+      .nav-left{
+        flex:1 1 100%;
+      }
+      .cta{
+        min-width:auto;
+      }
+      .hero-actions{
+        flex-direction:column;
+        align-items:stretch;
+      }
+      .two-col{
+        gap:1rem;
+      }
+      .contact{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="nav-left">
+        <span class="rs-logo-wrap">
+          <!-- RizeStride logo (same file as home page, adjust path if needed) -->
+          <img src="/rizestride-logo.png" alt="RizeStride logo" class="rs-logo">
+        </span>
+        <div class="nav-brand">
+          <span class="nav-brand-main">RizeStride</span>
+          <span class="nav-brand-sub">Jog-a-thon powered by RizeStride</span>
+        </div>
+      </div>
+      <div class="nav-school">
+        Pacific Trails School • 2026 Jog-a-thon
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="hero-kicker">School jog-a-thon</div>
+          <h1>Support the Pacific Trails School 2026 Jog-a-thon.</h1>
+
+          <div class="hero-school">Pacific Trails School • Laguna Ridge, CA</div>
+          <div class="hero-date">Event Date: March 14, 2026 • During the school day</div>
+
+          <p class="hero-lead">
+            Students will run laps to raise funds for campus improvements, classroom resources,
+            and enrichment programs. Your donation helps every student at Pacific Trails School.
+          </p>
+
+          <div class="hero-actions">
+            <!-- UPDATE: GroupRev / donation URL -->
+            <a class="cta" href="https://www.grouprev.com/pacific-trails-2026" target="_blank" rel="noopener noreferrer">
+              Donate to the Jog-a-thon
+            </a>
+            <button class="cta cta--outline" type="button" onclick="window.location='#how-to-donate'">
+              How it works
+            </button>
+          </div>
+          <p class="hero-note">
+            All donations are tax-deductible and go directly toward school programs and resources.
+          </p>
+        </div>
+
+        <aside class="hero-card">
+          <!-- HERO IMAGE: AI-generated running image placeholder -->
+          <!-- Save your image as: /assets/schools/pacific-trails-2026/hero.jpg -->
+          <img src="/assets/schools/pacific-trails-2026/hero.jpg"
+               alt="Students running in the Pacific Trails School jog-a-thon"
+               class="hero-img">
+          <div class="hero-card-body">
+            <div class="hero-pill-row">
+              <span class="pill">RFID lap tracking</span>
+              <span class="pill">Real-time results</span>
+              <span class="pill">Secure online donations</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ABOUT + HOW TO DONATE -->
+    <section class="section" id="how-to-donate">
+      <div class="container two-col">
+        <!-- About the event -->
+        <div>
+          <h2>About the 2026 Jog-a-thon</h2>
+          <p class="section-lead">
+            The jog-a-thon is Pacific Trails School’s main fundraiser for the year, focused on
+            community, movement, and support for every classroom.
+          </p>
+          <div class="card">
+            <h3>What students will do</h3>
+            <p>
+              Each grade level will have a 20–30 minute running session on the school track.
+              Students are encouraged to jog, run, or walk at their own pace. Laps are tracked
+              using RFID tags so every student’s effort is counted fairly.
+            </p>
+            <p class="muted">
+              Funds raised will support technology upgrades, library resources, and
+              campus improvements selected by the school administration.
+            </p>
+          </div>
+        </div>
+
+        <!-- How to donate -->
+        <div>
+          <h2>How to donate</h2>
+          <p class="section-lead">
+            Donating takes just a couple of minutes and can be done from any device.
+          </p>
+          <div class="card">
+            <h3>3 simple steps</h3>
+            <ul class="steps">
+              <li>
+                <div>
+                  Visit the secure fundraising page and search for your student or homeroom.
+                </div>
+              </li>
+              <li>
+                <div>
+                  Choose a flat donation or per-lap pledge and complete the checkout.
+                </div>
+              </li>
+              <li>
+                <div>
+                  Share the link with family and friends who may want to support your student.
+                </div>
+              </li>
+            </ul>
+            <p style="margin-top:.7rem;">
+              <a class="cta" href="https://www.grouprev.com/pacific-trails-2026" target="_blank" rel="noopener noreferrer">
+                Go to donation page
+              </a>
+            </p>
+            <p class="muted" style="margin-top:.6rem;">
+              The fundraising page is powered by GroupRev and RizeStride for secure, transparent
+              processing.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVENT SCHEDULE + FAQ -->
+    <section class="section">
+      <div class="container two-col">
+        <!-- Schedule -->
+        <div>
+          <h2>Event day schedule</h2>
+          <p class="section-lead">
+            Each grade will have a dedicated time block on the track. Please make sure students
+            arrive with comfortable shoes and a water bottle.
+          </p>
+          <div class="card">
+            <h3>March 14, 2026 — Tentative schedule</h3>
+            <table aria-label="Jog-a-thon schedule by grade">
+              <thead>
+                <tr>
+                  <th>Grade</th>
+                  <th>Time</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TK &amp; Kindergarten</td>
+                  <td>8:30 – 9:00 AM</td>
+                  <td>Shorter session, parent viewing welcome</td>
+                </tr>
+                <tr>
+                  <td>1st &amp; 2nd Grade</td>
+                  <td>9:15 – 9:45 AM</td>
+                  <td>Staggered start by class</td>
+                </tr>
+                <tr>
+                  <td>3rd &amp; 4th Grade</td>
+                  <td>10:00 – 10:30 AM</td>
+                  <td>RFID lap tracking active</td>
+                </tr>
+                <tr>
+                  <td>5th &amp; 6th Grade</td>
+                  <td>10:45 – 11:15 AM</td>
+                  <td>Competitive heats optional</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="muted" style="margin-top:.5rem;">
+              Exact times may shift slightly based on weather and campus needs. The school will
+              share final details before the event.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <div>
+          <h2>Frequently asked questions</h2>
+          <p class="section-lead">
+            A few common questions from families about how the jog-a-thon works.
+          </p>
+          <div class="card">
+            <div class="faq">
+              <div class="faq-item">
+                <h3>How are laps tracked?</h3>
+                <p>
+                  Each student wears an RFID tag that automatically records a lap every time they
+                  pass the timing line. This keeps counting fair and accurate for all students.
+                </p>
+              </div>
+              <div class="faq-item">
+                <h3>Can I donate a flat amount instead of per lap?</h3>
+                <p>
+                  Yes. The online donation page lets you choose a flat donation or a per-lap
+                  pledge. Per-lap pledges are calculated after the event based on actual laps run.
+                </p>
+              </div>
+              <div class="faq-item">
+                <h3>Are donations tax-deductible?</h3>
+                <p>
+                  In most cases, yes. You will receive a confirmation email with receipt details
+                  once your donation is processed. Please consult your tax advisor for specifics.
+                </p>
+              </div>
+              <div class="faq-item">
+                <h3>What should my student bring on event day?</h3>
+                <p>
+                  Comfortable running shoes, a labeled water bottle, sunscreen if needed, and
+                  appropriate clothing for outdoor activity. The school will share any additional
+                  guidance in advance.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact CTA -->
+          <div class="contact">
+            <div>
+              <p><strong>Questions about the Pacific Trails School jog-a-thon?</strong></p>
+              <p>Please reach out to the school office or jog-a-thon coordinator.</p>
+            </div>
+            <!-- UPDATE: contact email as needed -->
+            <p>
+              Contact: <a href="mailto:jogathon@pacifictrailsschool.org" class="contact-email">
+                jogathon@pacifictrailsschool.org
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div>Powered by RizeStride • Transparent, tech-enabled school fundraising.</div>
+      <small>© <span id="year"></span> RizeStride &amp; Pacific Trails School</small>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
