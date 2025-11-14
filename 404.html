@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Redirecting… • RizeStride</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Hard redirect to homepage -->
+  <meta http-equiv="refresh" content="0; url=https://rizestride.com/">
+  <style>
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      background:#f7f9fb;
+      color:#111827;
+    }
+    .wrap{
+      text-align:center;
+      max-width:400px;
+      padding:1.5rem;
+    }
+    a{
+      color:#0077FF;
+      text-decoration:none;
+      font-weight:600;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Redirecting to RizeStride…</h1>
+    <p>If you are not redirected automatically, <a href="https://rizestride.com/">click here to go home</a>.</p>
+  </div>
+
+  <script>
+    // JS fallback (in case meta refresh is blocked)
+    if (window.location) {
+      window.location.replace("https://rizestride.com/");
+    }
+  </script>
+</body>
+</html>
