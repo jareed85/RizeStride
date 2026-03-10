@@ -1,48 +1,514 @@
-&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-  &lt;meta charset=&quot;UTF-8&quot;&gt;
-  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
-  &lt;title&gt;Sunnyvale Elementary Jogathon 2026&lt;/title&gt;
-  &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;header&gt;
-    &lt;h1&gt;Sunnyvale Elementary Jogathon 2026&lt;/h1&gt;
-    &lt;p&gt;March 20, 2026 | 123 Sunnyvale Ave, Sunnyvale, CA 94086&lt;/p&gt;
-  &lt;/header&gt;
-  &lt;section id=&quot;info&quot;&gt;
-    &lt;h2&gt;About Our School&lt;/h2&gt;
-    &lt;p&gt;A vibrant K-5 school serving 500 students in Sunnyvale. Principal: Dr. Jane Smith. Raising funds for new playground equipment!&lt;/p&gt;
-  &lt;/section&gt;
-  &lt;section id=&quot;event&quot;&gt;
-    &lt;h2&gt;Event Details&lt;/h2&gt;
-    &lt;p&gt;Fun run on the school field. Pledges collected per lap run. Goal: $50,000.&lt;/p&gt;
-    &lt;h3&gt;RizeStride Service Tiers&lt;/h3&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;Tier 1 ($99):&lt;/strong&gt; Custom webpage + GroupRev donations&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Tier 2 ($299):&lt;/strong&gt; + Lap counting equipment rental&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Tier 3 ($999):&lt;/strong&gt; Full event management + prizes&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/section&gt;
-  &lt;section id=&quot;register&quot;&gt;
-    &lt;h2&gt;Student Registration&lt;/h2&gt;
-    &lt;form id=&quot;regForm&quot;&gt;
-      &lt;input type=&quot;text&quot; id=&quot;name&quot; placeholder=&quot;Student Full Name&quot; required&gt;
-      &lt;input type=&quot;text&quot; id=&quot;grade&quot; placeholder=&quot;Grade (e.g., 3rd)&quot; required&gt;
-      &lt;input type=&quot;email&quot; id=&quot;email&quot; placeholder=&quot;Parent Email&quot;&gt;
-      &lt;button type=&quot;submit&quot;&gt;Register to Run!&lt;/button&gt;
-    &lt;/form&gt;
-    &lt;div id=&quot;thanks&quot; style=&quot;display:none;&quot;&gt;✅ Thank you for registering! Check your email for pledge sheet.&lt;/div&gt;
-  &lt;/section&gt;
-  &lt;section id=&quot;sponsors&quot;&gt;
-    &lt;h2&gt;Our Sponsors&lt;/h2&gt;
-    &lt;p&gt;Thanks to: Sunnyvale Bank, Pizza Palace, Tech Innovators Inc., Local PTA&lt;/p&gt;
-  &lt;/section&gt;
-  &lt;section id=&quot;donate&quot;&gt;
-    &lt;h2&gt;Support Our Jogathon&lt;/h2&gt;
-    &lt;a href=&quot;https://www.grouprev.com/campaigns/placeholder-sunvale-jogathon&quot; class=&quot;donate-btn&quot; target=&quot;_blank&quot;&gt;Donate Now via GroupRev&lt;/a&gt;
-  &lt;/section&gt;
-  &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RizeStride — Modern School Fundraising</title>
+  <meta name="description" content="RizeStride helps schools run transparent, tech-enabled jog-a-thons that are fun, fair, and data-driven.">
+  <meta name="theme-color" content="#0077FF" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --blue:#0077FF;
+      --teal:#00C6AE;
+      --coral:#FF6B4A;
+      --charcoal:#222831;
+      --offwhite:#F7F9FB;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--charcoal);
+      background:linear-gradient(180deg,var(--offwhite),#fff);
+    }
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1100px,92%);margin-inline:auto}
+
+    /* Header */
+    header{
+      position:sticky;
+      top:0;
+      z-index:20;
+      background:#fff8;
+      backdrop-filter:saturate(180%) blur(6px);
+      border-bottom:1px solid #e9eef5;
+      transition:box-shadow .18s ease, background-color .18s ease;
+    }
+    header.scrolled{
+      background:#ffffffee;
+      box-shadow:0 4px 12px rgba(15,23,42,.12);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:.7rem 0}
+    .badge{display:flex;align-items:center;gap:.7rem}
+    .logo-wrap{width:72px;height:72px;border-radius:50%;overflow:hidden;display:inline-flex;align-items:center;justify-content:center}
+    .logo-img{width:100%;height:100%;object-fit:cover}
+    .brand{font-weight:800;letter-spacing:.2px}
+
+    /* Gradient CTA Buttons - unified sizing */
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.55rem;
+      min-width:175px;
+      height:46px;
+      padding:0 20px;
+      border-radius:14px;
+      font-weight:600;
+      font-size:15px;
+      line-height:1;
+      background:linear-gradient(135deg,var(--blue),var(--teal));
+      color:#fff;
+      border:none;
+      cursor:pointer;
+      font-family:inherit;
+      transition:transform .15s ease,box-shadow .15s ease;
+      box-shadow:0 8px 20px rgba(0,119,255,.25);
+      text-align:center;
+      text-wrap:nowrap;
+    }
+    .cta:hover{ transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,119,255,.32) }
+    .cta:active{ transform:translateY(0) }
+
+    .cta .icon{
+      width:18px;
+      height:18px;
+      flex:0 0 18px;
+      display:inline-block;
+    }
+    .cta .label{ display:inline-block }
+
+    /* Hero */
+    .hero{padding:6.5rem 0 4rem;position:relative;overflow:hidden}
+    .hero .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem}
+    .kicker{font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.12em;font-size:.82rem}
+    h1{font-size:clamp(2rem,4vw,3.2rem);line-height:1.05;margin:.5rem 0 1rem}
+    .lead{font-size:1.15rem;color:#475569;max-width:52ch}
+    .hero-card{background:#fff;border:1px solid #e9eef5;border-radius:22px;padding:1.25rem;box-shadow:0 20px 60px rgba(2,6,23,.08)}
+    .hero-badges{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem}
+    .pill{background:linear-gradient(180deg,#fff,#f2f6fb);border:1px solid #e6edf6;border-radius:999px;padding:.45rem .75rem;font-size:.9rem;font-weight:600;color:#334155}
+
+    .hero-actions{
+      margin-top:1.25rem;
+      display:flex;
+      gap:.75rem;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    /* Sections */
+    .section{padding:4rem 0;border-top:1px solid #eef2f7}
+    .props{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    .card{background:#fff;border:1px solid #e9eef5;border-radius:20px;padding:1.25rem;box-shadow:0 10px 30px rgba(2,6,23,.06)}
+    .card h3{margin:.2rem 0 .4rem}
+    .tag{display:inline-block;font-weight:700;font-size:.78rem;color:var(--blue);letter-spacing:.06em}
+
+    /* Tiers */
+    .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .tier{border-radius:22px;border:1px solid #e3eaf4;background:#fff;box-shadow:0 12px 36px rgba(2,6,23,.06);padding:1.2rem}
+    .tier h4{margin:.2rem 0 .8rem}
+    .price{font-weight:800;font-size:1.8rem}
+    .inc{margin:.8rem 0 0;padding:0 0 0 1.1rem}
+    .inc li{margin:.35rem 0}
+    .tier--popular{border-color:transparent;background:linear-gradient(180deg,#ffffff,#f7fbff);box-shadow:0 16px 44px rgba(0,119,255,.16)}
+    .tier--popular .badgelet{background:var(--coral);color:#fff;font-weight:700;border-radius:999px;padding:.25rem .6rem;font-size:.72rem;letter-spacing:.06em}
+
+    /* CTA band (bottom) */
+    .cta-band{
+      background:linear-gradient(135deg,var(--blue),var(--teal));
+      color:#fff;
+      border-radius:24px;
+      padding:1.25rem 1.2rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      flex-wrap:nowrap;
+    }
+    .cta-band p{margin:.2rem 0;opacity:.95}
+    .copyable-email{cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+    .cta-band-actions{
+      display:flex;
+      gap:.75rem;
+      align-items:center;
+      flex-shrink:0;
+    }
+
+    /* Floating mobile CTA */
+    .floating-cta{
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:0;
+      z-index:40;
+      padding:0.6rem 0.85rem calc(0.6rem + env(safe-area-inset-bottom));
+      background:linear-gradient(135deg,var(--blue),var(--teal));
+      display:none; /* hidden by default; shown via JS + media query */
+      opacity:0;
+      transform:translateY(10px);
+      transition:opacity .2s ease, transform .2s ease;
+    }
+    .floating-cta.show{
+      display:block;
+      opacity:1;
+      transform:translateY(0);
+    }
+    .floating-cta-inner{
+      max-width:1100px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      gap:.75rem;
+    }
+    .floating-cta-text{
+      color:#fff;
+      font-size:.9rem;
+      line-height:1.3;
+      flex:1;
+    }
+    .floating-cta .cta{
+      min-width:auto;
+      height:42px;
+      box-shadow:0 6px 16px rgba(0,0,0,.25);
+      background:#fff;
+      color:var(--charcoal);
+    }
+
+    /* Footer */
+    footer{padding:3rem 0;color:#556070}
+    footer small{display:block;margin-top:.75rem}
+
+    /* ===== Scroll reveal animations ===== */
+    .reveal{
+      opacity:0;
+      transform:translateY(16px);
+      transition:opacity .5s ease, transform .5s ease;
+    }
+    .reveal.in-view{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    /* Slightly longer + stagger on tiers */
+    .tiers .tier.reveal{
+      transition-duration:.55s;
+    }
+    .tiers .tier.reveal:nth-child(2){
+      transition-delay:.08s;
+    }
+    .tiers .tier.reveal:nth-child(3){
+      transition-delay:.16s;
+    }
+
+    /* Reduced motion: disable animations */
+    @media (prefers-reduced-motion: reduce){
+      .reveal,
+      .reveal.in-view{
+        opacity:1 !important;
+        transform:none !important;
+        transition:none !important;
+      }
+      .floating-cta{
+        transition:none;
+      }
+    }
+
+    @media (max-width:920px){
+      body{padding-bottom:70px;} /* avoid content under floating bar */
+      .hero{overflow:visible;}
+      .hero .grid{grid-template-columns:1fr}
+      .props,.tiers{grid-template-columns:1fr}
+      .logo-wrap{width:56px;height:56px}
+
+      /* Header button compact on mobile */
+      .nav{
+        flex-wrap:wrap;
+        gap:.5rem;
+      }
+      .nav .cta{
+        min-width:auto;
+        height:40px;
+        padding:0 16px;
+        font-size:14px;
+      }
+
+      /* Stack main CTAs full-width where it matters */
+      .hero-actions .cta,
+      .cta-band-actions .cta{
+        flex:1 1 100%;
+        min-width:0;
+        height:50px;
+      }
+
+      .cta-band{
+        flex-wrap:wrap;
+        justify-content:center;
+        text-align:center;
+      }
+
+      /* Only allow floating CTA to ever be shown on mobile */
+      .floating-cta.show{
+        display:block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="badge">
+        <span class="logo-wrap">
+          <img src="./rizestride-logo.png" alt="RizeStride logo" class="logo-img">
+        </span>
+        <span class="brand">RizeStride</span>
+      </div>
+      <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry">
+        <span class="label">Book an Event</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container grid">
+        <!-- Hero text column with reveal -->
+        <div class="reveal">
+          <div class="kicker">Modern school fundraising</div>
+          <h1>Transparent, tech-enabled jog-a-thons that help schools keep more.</h1>
+          <p class="lead">RizeStride combines a donation platform, RFID lap tracking, and clean event execution. Choose DIY, prize-included, or full-service — always at fair, transparent pricing.</p>
+          <div class="hero-badges">
+            <span class="pill">Tiered Packages</span>
+            <span class="pill">RFID lap tracking</span>
+            <span class="pill">Powered by GroupRev</span>
+            <span class="pill">South Orange County</span>
+          </div>
+          <div class="hero-actions">
+            <a class="cta" href="#tiers">
+              <span class="label">See Tiers</span>
+            </a>
+
+            <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry">
+              <span class="label">Book an Event</span>
+            </a>
+
+            <a class="cta" 
+               href="https://calendar.app.google/Avbnk3CPgdS3PkNc8"
+               target="_blank"
+               rel="noopener noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="17" rx="2" stroke="white" stroke-width="2"/>
+                <path d="M8 2v4M16 2v4M3 9h18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                <rect x="7.5" y="12.5" width="3" height="3" rx=".5" fill="white"/>
+                <rect x="12.5" y="12.5" width="3" height="3" rx=".5" fill="white"/>
+              </svg>
+              <span class="label">Schedule a Call</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero card with slight delayed reveal -->
+        <div class="hero-card reveal">
+          <img src="./mock-leaderboard.png" alt="Fundraising thermometer graphic" style="width:100%;border-radius:16px;border:1px solid #e9eef5"/>
+          <div style="display:flex;gap:.5rem;margin-top:.8rem;align-items:center">
+            <span class="tag">Live Platform</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tiers" class="section">
+      <div class="container">
+        <h2 class="reveal">Service Tiers</h2>
+        <p style="color:#556070" class="reveal">Choose your level of support.</p>
+
+        <div class="tiers">
+          <article class="tier reveal">
+            <div class="price">5%</div>
+            <h4>Basic — DIY + Platform</h4>
+            <ul class="inc">
+              <li>Custom school campaign page</li>
+              <li>Fast, secure donations (powered by GroupRev)</li>
+              <li>Participant goals & reporting</li>
+              <li>Comms templates & timeline</li>
+            </ul>
+          </article>
+
+          <article class="tier tier--popular reveal">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div class="price">15%</div>
+              <span class="badgelet">Most Popular</span>
+            </div>
+            <h4>Plus — Prizes Included</h4>
+            <ul class="inc">
+              <li>Everything in Basic</li>
+              <li>Prize kits & fulfillment tracking</li>
+              <li>Digital leaderboard assets</li>
+              <li><strong>Optional:</strong> RFID hardware rental <em>(+$1,000)</em></li>
+            </ul>
+          </article>
+
+          <article class="tier reveal">
+            <div class="price">25%</div>
+            <h4>Full Service — Turnkey</h4>
+            <ul class="inc">
+              <li>On-site coordination & emcee</li>
+              <li>RFID lap tracking included</li>
+              <li>Event staff, setup & teardown</li>
+              <li>Post-event analytics report</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="section">
+      <div class="container cta-band reveal" id="contact">
+        <div style="flex:1;min-width:250px">
+          <h3>Book an Event or Schedule a Call</h3>
+          <p>South Orange County schools get priority scheduling.</p>
+          <p style="opacity:.9">
+            Email: <strong id="contactEmail" class="copyable-email">events@rizestride.com</strong>
+            <span id="copyStatus" style="display:none;font-weight:600">Copied!</span>
+          </p>
+        </div>
+        <div class="cta-band-actions">
+          <a class="cta" href="mailto:events@rizestride.com?subject=Event%20Inquiry">
+            <span class="label">Book an Event</span>
+          </a>
+
+          <a class="cta" 
+             href="https://calendar.app.google/Avbnk3CPgdS3PkNc8"
+             target="_blank"
+             rel="noopener noreferrer">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="17" rx="2" stroke="white" stroke-width="2"/>
+              <path d="M8 2v4M16 2v4M3 9h18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              <rect x="7.5" y="12.5" width="3" height="3" rx=".5" fill="white"/>
+              <rect x="12.5" y="12.5" width="3" height="3" rx=".5" fill="white"/>
+            </svg>
+            <span class="label">Schedule a Call</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap">
+      <div>
+        <strong>RizeStride</strong><br/>
+        <small>Transparent, tech-enabled fundraising.</small>
+      </div>
+      <div>
+        <small>© <span id="y"></span> RizeStride · South Orange County, CA</small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating mobile Schedule CTA -->
+  <div class="floating-cta" id="mobileScheduleBar">
+    <div class="floating-cta-inner">
+      <div class="floating-cta-text">
+        <strong>Schedule a quick call</strong><br/>
+        Plan your jog-a-thon in a few minutes.
+      </div>
+      <a class="cta"
+         href="https://calendar.app.google/Avbnk3CPgdS3PkNc8"
+         target="_blank"
+         rel="noopener noreferrer">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="17" rx="2" stroke="black" stroke-width="2"/>
+          <path d="M8 2v4M16 2v4M3 9h18" stroke="black" stroke-width="2" stroke-linecap="round"/>
+          <rect x="7.5" y="12.5" width="3" height="3" rx=".5" fill="black"/>
+          <rect x="12.5" y="12.5" width="3" height="3" rx=".5" fill="black"/>
+        </svg>
+        <span class="label">Schedule</span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Copy email when clicked
+    const emailEl = document.getElementById('contactEmail');
+    const copyStatus = document.getElementById('copyStatus');
+    if (emailEl) {
+      emailEl.addEventListener('click', async () => {
+        const email = emailEl.textContent.trim();
+        try {
+          await navigator.clipboard.writeText(email);
+        } catch {
+          const temp = document.createElement('input');
+          temp.value = email;
+          document.body.appendChild(temp);
+          temp.select();
+          document.execCommand('copy');
+          document.body.removeChild(temp);
+        }
+        copyStatus.style.display = 'inline';
+        setTimeout(() => copyStatus.style.display = 'none', 1400);
+      });
+    }
+
+    // Scroll-trigger for header shadow + floating CTA + reveals
+    const headerEl = document.querySelector('header');
+    const mobileBar = document.getElementById('mobileScheduleBar');
+    const revealEls = Array.from(document.querySelectorAll('.reveal'));
+
+    function onScroll() {
+      const y = window.scrollY || window.pageYOffset || 0;
+
+      // Header shadow
+      if (y > 10) {
+        headerEl.classList.add('scrolled');
+      } else {
+        headerEl.classList.remove('scrolled');
+      }
+
+      // Only toggle mobile bar on small screens
+      const isMobile = window.matchMedia('(max-width: 920px)').matches;
+      if (!isMobile) {
+        mobileBar.classList.remove('show');
+      } else {
+        // Show bar after user scrolls a bit
+        if (y > 200) {
+          mobileBar.classList.add('show');
+        } else {
+          mobileBar.classList.remove('show');
+        }
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll(); // run once on load
+
+    // IntersectionObserver for reveals
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        root: null,
+        threshold: 0.15
+      });
+
+      revealEls.forEach(el => io.observe(el));
+    } else {
+      // Fallback: just show everything
+      revealEls.forEach(el => el.classList.add('in-view'));
+    }
+  </script>
+</body>
+</html>
